@@ -3,10 +3,7 @@ package com.wnra.soldout.model;
 import com.wnra.soldout.enums.StatusConta;
 import lombok.*;
 
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -28,6 +25,12 @@ public class Conta {
 
     @OneToMany(mappedBy = "conta")
     private List<Endereco> enderecos;
+
+    @OneToMany(mappedBy = "conta")
+    private List<Favorito> favoritos;
+
+    @ManyToMany
+    private List<Cupom> cupons;
 
 
 }
