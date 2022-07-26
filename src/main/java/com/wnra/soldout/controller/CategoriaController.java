@@ -2,7 +2,7 @@ package com.wnra.soldout.controller;
 
 import com.wnra.soldout.dto.FormCategoriaDTO;
 import com.wnra.soldout.model.Categoria;
-import com.wnra.soldout.repository.CategoriaService;
+import com.wnra.soldout.service.CategoriaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

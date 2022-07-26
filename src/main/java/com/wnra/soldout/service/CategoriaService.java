@@ -1,7 +1,6 @@
-package com.wnra.soldout.repository;
+package com.wnra.soldout.service;
 
 import com.wnra.soldout.model.Categoria;
-import com.wnra.soldout.service.GenericService;
 import org.springframework.stereotype.Service;
 
 @Service
