@@ -19,12 +19,6 @@ public abstract class CommonController<T, ID, FormDTO> {
         return ResponseEntity.ok(genericService.salvar(t));
     }
 
-    @DeleteMapping("{id}")
-    public ResponseEntity<?> excluir(@PathVariable ID id){
-        genericService.excluir(id);
-        return ResponseEntity.ok("O objeto foi excluído!");
-    }
-
     @GetMapping("{id}")
     public ResponseEntity<?> obter(@PathVariable ID id){
         return ResponseEntity.ok(genericService.obter(id));

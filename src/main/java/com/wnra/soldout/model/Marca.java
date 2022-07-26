@@ -6,8 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -20,5 +20,11 @@ public class Marca {
     private String id;
     private LocalDateTime dataAdicao;
     private String nome;
+
+    public Marca(String nome) {
+        this.id = UUID.randomUUID().toString();
+        this.dataAdicao = LocalDateTime.now();
+        this.nome = nome;
+    }
 
 }
