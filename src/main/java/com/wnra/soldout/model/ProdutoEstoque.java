@@ -3,6 +3,7 @@ package com.wnra.soldout.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -10,7 +11,7 @@ import javax.persistence.*;
 @Setter
 @ToString
 @Entity
-public class ProdutoEstoque {
+public class ProdutoEstoque implements Serializable {
 
     @Id
     @OneToOne(optional = false)

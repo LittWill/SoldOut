@@ -15,7 +15,6 @@ import java.util.List;
 @Getter
 @Setter
 @Entity
-@Table(name = "produtos")
 public class Produto {
 
     @Id
@@ -25,6 +24,9 @@ public class Produto {
     private String modelo;
     private BigDecimal preco;
     private Boolean compraUnica;
+    @ManyToOne
+    @JoinColumn(name = "promocao_id")
+    private Promocao promocao;
 
     @ManyToOne
     @JoinColumn(name = "marca_id")
