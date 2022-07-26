@@ -2,8 +2,7 @@ package com.wnra.soldout.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @ToString
-@Entity
+@MappedSuperclass
 public abstract class Imagem {
 
     @Id

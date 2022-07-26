@@ -2,9 +2,7 @@ package com.wnra.soldout.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor

@@ -38,7 +38,7 @@ public class Produto {
     @ManyToMany
     private List<Genero> generos;
 
-    @OneToMany
+    @OneToMany(mappedBy = "produto")
     private List<ImagemProduto> imagens;
 
 }

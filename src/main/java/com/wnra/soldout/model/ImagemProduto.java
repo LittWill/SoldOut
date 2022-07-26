@@ -18,4 +18,6 @@ public class ImagemProduto extends Imagem{
     @JoinColumn(name = "produto_id")
     private Produto produto;
 
+
+
 }
