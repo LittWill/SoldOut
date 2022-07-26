@@ -3,29 +3,30 @@ package com.wnra.soldout.controller;
 import com.wnra.soldout.dto.FormCategoriaDTO;
 import com.wnra.soldout.model.Categoria;
 import com.wnra.soldout.service.CategoriaService;
-import lombok.RequiredArgsConstructor;
+import com.wnra.soldout.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.time.LocalDateTime;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("categorias")
-@RequiredArgsConstructor
-public class CategoriaController {
+public class CategoriaController extends CommonController<Categoria, String, FormCategoriaDTO> {
 
     @Autowired
-    private final CategoriaService categoriaService;
+    private CategoriaService categoriaService;
 
-    @PostMapping
-    public ResponseEntity<?> salvarCategoria(@RequestBody FormCategoriaDTO categoriaDTO){
-        Categoria categoriaSalva = this.categoriaService.salvar(new Categoria(categoriaDTO.getNome(), LocalDateTime.now()));
-        return ResponseEntity.ok(categoriaSalva);
+    protected CategoriaController(GenericService<Categoria, String> genericService) {
+        super(genericService);
     }
 
+    @Override
+    public ResponseEntity<?> excluir(String s) {
+        throw new RuntimeException(s);
+    }
+
+    @Override
+    protected Categoria converterFormDTO(FormCategoriaDTO formCategoriaDTO) {
+        return new Categoria(formCategoriaDTO.getNome());
+    }
 
 }

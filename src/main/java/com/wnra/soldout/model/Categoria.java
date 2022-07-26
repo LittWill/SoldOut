@@ -6,7 +6,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -17,5 +16,10 @@ public class Categoria {
     @Id
     private String nome;
     private LocalDateTime dataAdicao;
+
+    public Categoria (String nome){
+        this.nome = nome;
+        this.dataAdicao = LocalDateTime.now();
+    }
 
 }
