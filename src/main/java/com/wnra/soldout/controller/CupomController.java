@@ -2,6 +2,7 @@ package com.wnra.soldout.controller;
 
 import com.wnra.soldout.dto.FormCupomDTO;
 import com.wnra.soldout.dto.FormUpdateCupomDTO;
+import com.wnra.soldout.dto.ValorProdutosCarrinhoDTO;
 import com.wnra.soldout.model.Cupom;
 import com.wnra.soldout.service.CupomService;
 import com.wnra.soldout.service.GenericService;
@@ -19,6 +20,11 @@ public class CupomController extends CommonController<Cupom, String, FormCupomDT
 
     protected CupomController(GenericService<Cupom, String> genericService) {
         super(genericService);
+    }
+
+    @GetMapping("aplicar/{codigo}")
+    public ResponseEntity<ValorProdutosCarrinhoDTO> aplicarCupom(@PathVariable String codigo, @RequestBody ValorProdutosCarrinhoDTO dto){
+        return ResponseEntity.ok(cupomService.aplicarCupom(codigo, dto));
     }
 
     @PutMapping("{id}")

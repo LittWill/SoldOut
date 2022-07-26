@@ -35,4 +35,8 @@ public class Cupom {
         this.dataCriacao = LocalDateTime.now();
     }
 
+    public Double converterValorParaPorcentagem(){
+        return valor.doubleValue() / 100;
+    }
+
 }
