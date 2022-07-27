@@ -37,7 +37,7 @@ public class Produto {
     private Boolean compraUnica;
 
     @ManyToOne
-    @JoinColumn(name = "promocao_id", updatable = false)
+    @JoinColumn(name = "promocao_id")
     private Promocao promocao;
 
     @ManyToOne(optional = false)

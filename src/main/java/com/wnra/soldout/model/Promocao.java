@@ -8,6 +8,8 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.Random;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -32,5 +34,12 @@ public class Promocao {
     @Column(nullable = false)
     private Boolean isValorPorcentagem;
 
+    public Promocao(LocalDateTime dataExpiracao, BigDecimal valor, Boolean isValorPorcentagem) {
+        this.id = UUID.randomUUID().toString();
+        this.dataCriacao = LocalDateTime.now();
+        this.dataExpiracao = dataExpiracao;
+        this.valor = valor;
+        this.isValorPorcentagem = isValorPorcentagem;
+    }
 
 }
