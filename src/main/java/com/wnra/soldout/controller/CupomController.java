@@ -35,7 +35,7 @@ public class CupomController extends CommonController<Cupom, String, FormCupomDT
 
     @Override
     protected Cupom converterFormDTO(FormCupomDTO formCupomDTO) {
-        return new Cupom(formCupomDTO.getCodigo(), formCupomDTO.getValor(), formCupomDTO.getDataExpiracao(), formCupomDTO.getIsValorPorcentagem());
+        return new Cupom(formCupomDTO.getCodigo(), formCupomDTO.getValor(), formCupomDTO.getDataExpiracao(), formCupomDTO.getIsValorPorcentagem(), formCupomDTO.getIsFreteCupom());
     }
 
 

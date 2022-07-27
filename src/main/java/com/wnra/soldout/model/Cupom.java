@@ -25,13 +25,17 @@ public class Cupom {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dataExpiracao;
     private Boolean isValorPorcentagem;
+    private Boolean isFreteCupom;
+    private BigDecimal valorMinimo;
+    private BigDecimal valorMaximo;
 
-    public Cupom (String codigo, BigDecimal valor, LocalDateTime dataExpiracao, Boolean isValorPorcentagem){
+    public Cupom (String codigo, BigDecimal valor, LocalDateTime dataExpiracao, Boolean isValorPorcentagem, Boolean isFreteCupom){
         this.id = UUID.randomUUID().toString();
         this.codigo = codigo;
         this.valor = valor;
         this.dataExpiracao = dataExpiracao;
         this.isValorPorcentagem = isValorPorcentagem;
+        this.isFreteCupom = isFreteCupom;
         this.dataCriacao = LocalDateTime.now();
     }
 

@@ -15,5 +15,6 @@ public class FormUpdateCupomDTO {
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dataExpiracao;
     private Boolean isValorPorcentagem;
+    private Boolean isFreteCupom;
 
 }
