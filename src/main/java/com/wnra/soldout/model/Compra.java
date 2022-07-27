@@ -36,7 +36,7 @@ public class Compra {
     private Conta conta;
 
     @OneToMany(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "compra_id")
+    @JoinColumn(name = "compra_id", nullable = false)
     private List<ItemCompra> itensCompra;
 
     @ManyToOne(optional = false)
