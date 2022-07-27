@@ -6,8 +6,8 @@ import lombok.*;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -38,6 +38,14 @@ public class Conta {
 
     @ManyToMany
     private List<Cupom> cupons;
+
+    public Conta(Cliente cliente, String senha) {
+        this.id = UUID.randomUUID().toString();
+        this.dataCriacao = LocalDateTime.now();
+        this.cliente = cliente;
+        this.senha = senha;
+        this.statusConta = StatusConta.INATIVA;
+    }
 
 
 }

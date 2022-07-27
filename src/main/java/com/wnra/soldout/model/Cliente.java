@@ -19,9 +19,9 @@ public class Cliente {
     private String primeiroNome;
     @Column(nullable = false, updatable = false)
     private String ultimoNome;
-    @Column(nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false, unique = true)
     private String email;
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String telefone;
 
 }
