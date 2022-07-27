@@ -16,6 +16,7 @@ public class ItemCompraMapper {
         ItemCompra itemCompra = modelMapper.map(formItemCompraDTO, ItemCompra.class);
         itemCompra.setId(UUID.randomUUID().toString());
         itemCompra.setProduto(produtoService.obter(formItemCompraDTO.getProdutoId()));
+        itemCompra.setValor(itemCompra.getProduto().getPreco());
         return itemCompra;
     }
             

@@ -16,7 +16,7 @@ public class ProdutoEstoqueService extends GenericService<ProdutoEstoque, String
     @Autowired
     private ProdutoEstoqueRepository produtoEstoqueRepository;
 
-    public void verificarCompraExclusiva(List<ItemCompra> itensCompra){
+    public void verificarViolacaoCompraExclusiva(List<ItemCompra> itensCompra){
         itensCompra.forEach(itemCompra -> {
             if (Boolean.TRUE.equals(itemCompra.getProduto().getCompraUnica()) && itemCompra.getQuantidade() > 1){
                 throw new RuntimeException("Quantidade não permitida para um ou mais itens!");
@@ -24,11 +24,11 @@ public class ProdutoEstoqueService extends GenericService<ProdutoEstoque, String
         });
     }
 
-    public void verificarEstoque(List<ItemCompra> itensCompra){
+    public void verificarDisponibilidadeEstoque(List<ItemCompra> itensCompra){
         itensCompra.forEach(itemCompra -> {
             ProdutoEstoque produtoEstoque = this.obterPorProdutoId(itemCompra.getProduto().getId());
             if (produtoEstoque.getQuantidade() < itemCompra.getQuantidade()){
-                throw new RuntimeException("Não há estoque disponível;");
+                throw new RuntimeException("Não há estoque disponível!");
             }
         });
     }

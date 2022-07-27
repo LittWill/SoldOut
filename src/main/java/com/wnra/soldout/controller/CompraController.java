@@ -1,7 +1,6 @@
 package com.wnra.soldout.controller;
 
 import com.wnra.soldout.dto.FormCompraDTO;
-import com.wnra.soldout.dto.FormItemCompraDTO;
 import com.wnra.soldout.mapper.ItemCompraMapper;
 import com.wnra.soldout.model.*;
 import com.wnra.soldout.service.*;
@@ -35,9 +34,9 @@ public class CompraController {
     public ResponseEntity<String> salvar(@RequestBody FormCompraDTO formCompraDTO) {
         List<ItemCompra> itensCompra = extrairItensCompra(formCompraDTO, produtoService);
 
-        produtoEstoqueService.verificarCompraExclusiva(itensCompra);
+        produtoEstoqueService.verificarViolacaoCompraExclusiva(itensCompra);
 
-        produtoEstoqueService.verificarEstoque(itensCompra);
+        produtoEstoqueService.verificarDisponibilidadeEstoque(itensCompra);
 
         Conta conta = new Conta();
         conta.setId("3d8b334b-ebf8-4ec9-9ab8-7a97a16f9144");
