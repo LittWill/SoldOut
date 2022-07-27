@@ -1,8 +1,12 @@
 package com.wnra.soldout.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.math.BigDecimal;
@@ -18,18 +22,31 @@ public class Cupom {
 
     @Id
     private String id;
+
+    @Column(length = 50, unique = true, updatable = false, nullable = false)
     private String codigo;
+
+    @Column(nullable = false)
     private BigDecimal valor;
+
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
+    @Column(nullable = false)
     private LocalDateTime dataCriacao;
+
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
     private LocalDateTime dataExpiracao;
+
+    @Column(nullable = false)
     private Boolean isValorPorcentagem;
+
+    @Column(nullable = false)
     private Boolean isFreteCupom;
+
     private BigDecimal valorMinimo;
     private BigDecimal valorMaximo;
 
-    public Cupom (String codigo, BigDecimal valor, LocalDateTime dataExpiracao, Boolean isValorPorcentagem, Boolean isFreteCupom){
+    public Cupom(String codigo, BigDecimal valor, LocalDateTime dataExpiracao, Boolean isValorPorcentagem,
+                 Boolean isFreteCupom) {
         this.id = UUID.randomUUID().toString();
         this.codigo = codigo;
         this.valor = valor;
@@ -39,7 +56,7 @@ public class Cupom {
         this.dataCriacao = LocalDateTime.now();
     }
 
-    public Double converterValorParaPorcentagem(){
+    public Double converterValorParaPorcentagem() {
         return valor.doubleValue() / 100;
     }
 
