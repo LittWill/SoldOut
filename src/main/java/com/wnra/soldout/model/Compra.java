@@ -10,8 +10,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -35,8 +35,12 @@ public class Compra {
     @JoinColumn(name = "conta_id", updatable = false)
     private Conta conta;
 
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "compra_id")
+    private List<ItemCompra> itensCompra;
+
     @ManyToOne(optional = false)
-    @JoinColumn(name = "endereco_cep")
+    @JoinColumn(name = "endereco_id")
     private Endereco endereco;
 
     @ManyToOne
@@ -45,6 +49,19 @@ public class Compra {
 
     @OneToMany
     private List<Promocao> promocoesUtilizadas;
+
+    public Compra(BigDecimal valorFrete, Conta conta, Endereco endereco, Cupom cupom,
+                  List<Promocao> promocoesUtilizadas, List<ItemCompra> itensCompra) {
+        this.id = UUID.randomUUID().toString();
+        this.dataAdicao = LocalDateTime.now();
+        this.statusCompra = StatusCompra.PROCESSAMENTO;
+        this.valorFrete = valorFrete;
+        this.conta = conta;
+        this.endereco = endereco;
+        this.cupom = cupom;
+        this.promocoesUtilizadas = promocoesUtilizadas;
+        this.itensCompra = itensCompra;
+    }
 
 
 }

@@ -7,8 +7,8 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -26,12 +26,14 @@ public class ItemCompra {
     private BigDecimal valor;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "compra_id", updatable = false)
-    private Compra compra;
-
-    @ManyToOne(optional = false)
     @JoinColumn(name = "produto_id", updatable = false)
     private Produto produto;
 
+    public ItemCompra(String id, Integer quantidade, BigDecimal valor, Produto produto) {
+        this.id = id;
+        this.quantidade = quantidade;
+        this.valor = valor;
+        this.produto = produto;
+    }
 
 }

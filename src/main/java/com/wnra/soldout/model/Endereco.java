@@ -3,9 +3,9 @@ package com.wnra.soldout.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.UUID;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -14,6 +14,9 @@ public class Endereco {
 
     @Id
     @Column(updatable = false)
+    private String id;
+
+    @Column(nullable = false)
     private String cep;
 
     @Column(nullable = false, updatable = false)
@@ -25,4 +28,8 @@ public class Endereco {
     @ManyToOne(optional = false)
     @JoinColumn(name = "conta_id", updatable = false)
     private Conta conta;
+
+    public Endereco (){
+        this.id = UUID.randomUUID().toString();
+    }
 }

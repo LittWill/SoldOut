@@ -67,4 +67,8 @@ public class Produto {
         this.generos = generos;
     }
 
+    public Produto(String id) {
+        this.id = id;
+    }
+
 }
