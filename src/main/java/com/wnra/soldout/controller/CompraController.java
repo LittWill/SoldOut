@@ -35,6 +35,8 @@ public class CompraController {
     public ResponseEntity<String> salvar(@RequestBody FormCompraDTO formCompraDTO) {
         List<ItemCompra> itensCompra = extrairItensCompra(formCompraDTO, produtoService);
 
+        produtoEstoqueService.verificarCompraExclusiva(itensCompra);
+
         produtoEstoqueService.verificarEstoque(itensCompra);
 
         Conta conta = new Conta();
