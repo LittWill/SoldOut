@@ -29,8 +29,7 @@ public class ItemCompra {
     @JoinColumn(name = "produto_id", updatable = false)
     private Produto produto;
 
-    public ItemCompra(String id, Integer quantidade, BigDecimal valor, Produto produto) {
-        this.id = id;
+    public ItemCompra(Integer quantidade, BigDecimal valor, Produto produto) {
         this.quantidade = quantidade;
         this.valor = valor;
         this.produto = produto;

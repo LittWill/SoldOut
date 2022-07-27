@@ -17,7 +17,6 @@ public class FormCompraDTO {
     private String contaId;
     private String enderecoId;
     private String cupomId;
-    private List<String> promocoesUtilizadas;
     private List<FormItemCompraDTO> itensCompraDTO;
 
 }

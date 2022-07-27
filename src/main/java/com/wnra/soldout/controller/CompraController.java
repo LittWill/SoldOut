@@ -1,19 +1,20 @@
 package com.wnra.soldout.controller;
 
 import com.wnra.soldout.dto.FormCompraDTO;
+import com.wnra.soldout.dto.FormItemCompraDTO;
+import com.wnra.soldout.mapper.ItemCompraMapper;
 import com.wnra.soldout.model.*;
 import com.wnra.soldout.service.CompraService;
 import com.wnra.soldout.service.GenericService;
 import com.wnra.soldout.service.ProdutoService;
+import com.wnra.soldout.service.PromocaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,6 +27,9 @@ public class CompraController extends CommonController<Compra, String, FormCompr
     @Autowired
     private ProdutoService produtoService;
 
+    @Autowired
+    private PromocaoService promocaoService;
+
     protected CompraController(GenericService<Compra, String> genericService) {
         super(genericService);
     }
@@ -37,11 +41,26 @@ public class CompraController extends CommonController<Compra, String, FormCompr
         Endereco endereco = new Endereco();
         endereco.setId(formCompraDTO.getEnderecoId());
 
-        List<ItemCompra> itemCompras =
-                formCompraDTO.getItensCompraDTO().stream().map(itemCompraDTO -> new ItemCompra(UUID.randomUUID().toString(), itemCompraDTO.getQuantidade(), itemCompraDTO.getValor(), produtoService.obter(itemCompraDTO.getProdutoId()))).collect(Collectors.toList());
-        List<Promocao> promocoesUtilizadas = itemCompras.stream().map(itemCompra -> itemCompra.getProduto().getPromocao()).collect(Collectors.toList());
-                Compra compra = new Compra(formCompraDTO.getValorFrete(), conta, endereco, null, promocoesUtilizadas, itemCompras);
-        return ResponseEntity.ok(compraService.salvar(compra));
+        List<ItemCompra> itensCompra = extrairItensCompra(formCompraDTO, produtoService);
+
+        List<Promocao> promocoesUtilizadas = extrairPromocoes(itensCompra);
+
+        promocaoService.aplicarPromocao(itensCompra);
+
+        Compra compra = new Compra(formCompraDTO.getValorFrete(), conta, endereco, null, promocoesUtilizadas,
+                itensCompra);
+
+        compra = compraService.salvar(compra);
+
+        return ResponseEntity.ok(compra);
+    }
+
+    private List<ItemCompra> extrairItensCompra(FormCompraDTO formCompraDTO, ProdutoService produtoService){
+        return formCompraDTO.getItensCompraDTO().stream().map(formItemCompraDTO -> ItemCompraMapper.formDTOToEntity(formItemCompraDTO, produtoService)).collect(Collectors.toList());
+    }
+
+    private List<Promocao> extrairPromocoes(List<ItemCompra> itensCompra){
+        return itensCompra.stream().map(itemCompra -> itemCompra.getProduto().getPromocao()).collect(Collectors.toList());
     }
 
     @Override

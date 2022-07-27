@@ -22,11 +22,6 @@ public class CupomController extends CommonController<Cupom, String, FormCupomDT
         super(genericService);
     }
 
-    @GetMapping("aplicar/{codigo}")
-    public ResponseEntity<ValorProdutosCarrinhoDTO> aplicarCupom(@PathVariable String codigo, @RequestBody ValorProdutosCarrinhoDTO dto){
-        return ResponseEntity.ok(cupomService.aplicarCupom(codigo, dto));
-    }
-
     @PutMapping("{id}")
     public ResponseEntity<?> atualizar(@PathVariable String id, @RequestBody FormUpdateCupomDTO formUpdateCupomDTO){
         Cupom cupomAtualizado = cupomService.atualizar(id, formUpdateCupomDTOToEntity(formUpdateCupomDTO));
