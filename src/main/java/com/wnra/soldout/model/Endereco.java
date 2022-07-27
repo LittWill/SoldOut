@@ -25,11 +25,15 @@ public class Endereco {
     @Column(nullable = false, updatable = false)
     private String numero;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "conta_id", updatable = false)
-    private Conta conta;
-
     public Endereco (){
         this.id = UUID.randomUUID().toString();
     }
+
+    public Endereco(String cep, String nome, String numero) {
+        this.id = UUID.randomUUID().toString();
+        this.cep = cep;
+        this.nome = nome;
+        this.numero = numero;
+    }
+
 }

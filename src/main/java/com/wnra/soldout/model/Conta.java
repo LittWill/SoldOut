@@ -30,11 +30,15 @@ public class Conta {
     @Embedded
     private Cliente cliente;
 
-    @OneToMany(mappedBy = "conta")
+    @OneToMany(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "conta_id")
     private List<Endereco> enderecos;
 
     @OneToMany(mappedBy = "conta")
     private List<Favorito> favoritos;
+
+    @OneToMany(mappedBy = "conta")
+    private List<Compra> compras;
 
     @ManyToMany
     private List<Cupom> cupons;

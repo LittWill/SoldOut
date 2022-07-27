@@ -1,9 +1,7 @@
 package com.wnra.soldout.controller;
 
-import com.wnra.soldout.dto.FormCategoriaDTO;
 import com.wnra.soldout.dto.FormCompraDTO;
 import com.wnra.soldout.model.*;
-import com.wnra.soldout.service.CategoriaService;
 import com.wnra.soldout.service.CompraService;
 import com.wnra.soldout.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
