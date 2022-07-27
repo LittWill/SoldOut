@@ -9,8 +9,8 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
-@AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
@@ -52,5 +52,19 @@ public class Produto {
 
     @OneToMany(mappedBy = "produto")
     private List<ImagemProduto> imagens;
+
+    public Produto(String descricao, String modelo, BigDecimal preco, Boolean compraUnica, Promocao promocao,
+                   Marca marca, List<Categoria> categorias, List<Genero> generos) {
+        this.id = UUID.randomUUID().toString();
+        this.dataAdicao = LocalDateTime.now();
+        this.descricao = descricao;
+        this.modelo = modelo;
+        this.preco = preco;
+        this.compraUnica = compraUnica;
+        this.promocao = promocao;
+        this.marca = marca;
+        this.categorias = categorias;
+        this.generos = generos;
+    }
 
 }
