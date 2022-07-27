@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.UUID;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -13,12 +14,21 @@ import java.io.Serializable;
 @Entity
 public class ProdutoEstoque implements Serializable {
 
+    @Column(updatable = false)
     @Id
+    private String id;
+
     @OneToOne(optional = false)
-    @JoinColumn(name = "produto_id", updatable = false)
+    @JoinColumn(name = "produto_id", updatable = false, unique = true)
     private Produto produto;
 
     @Column(nullable = false)
     private Integer quantidade;
+
+    public ProdutoEstoque (Produto produto, Integer quantidade){
+        this.id = UUID.randomUUID().toString();
+        this.produto = produto;
+        this.quantidade = quantidade;
+    }
 
 }
