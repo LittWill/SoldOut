@@ -16,13 +16,18 @@ import java.time.LocalDateTime;
 public class Favorito {
 
     @Id
+    @Column(updatable = false)
     private String id;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataAdicao;
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
-    @ManyToOne
-    @JoinColumn(name = "conta_id")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "conta_id", nullable = false)
     private Conta conta;
 
 

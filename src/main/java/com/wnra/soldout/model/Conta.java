@@ -15,9 +15,16 @@ import java.util.List;
 public class Conta {
 
     @Id
+    @Column(updatable = false)
     private String id;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
+
+    @Column(nullable = false)
     private StatusConta statusConta;
+
+    @Column(nullable = false)
     private String senha;
 
     @Embedded

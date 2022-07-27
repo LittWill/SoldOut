@@ -2,10 +2,7 @@ package com.wnra.soldout.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,11 +13,16 @@ import javax.persistence.ManyToOne;
 public class Endereco {
 
     @Id
+    @Column(updatable = false)
     private String cep;
+
+    @Column(nullable = false, updatable = false)
     private String nome;
+
+    @Column(nullable = false, updatable = false)
     private String numero;
-    private Boolean isValorPorcentagem;
-    @ManyToOne
-    @JoinColumn(name = "conta_id")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "conta_id", updatable = false)
     private Conta conta;
 }

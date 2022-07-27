@@ -2,10 +2,7 @@ package com.wnra.soldout.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @AllArgsConstructor
@@ -17,13 +14,17 @@ import java.time.LocalDateTime;
 public class Avaliacao {
 
     @Id
+    @Column(updatable = false)
     private String id;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataAdicao;
-    @ManyToOne
-    @JoinColumn(name = "conta_id")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "conta_id", updatable = false)
     private Conta conta;
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "produto_id", updatable = false)
     private Produto produto;
 
 }

@@ -14,7 +14,10 @@ import java.time.LocalDateTime;
 public abstract class Imagem {
 
     @Id
+    @Column(updatable = false)
     private String url;
+
+    @Column(insertable = false, updatable = false)
     private LocalDateTime dataAdicao;
 
 }

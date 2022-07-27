@@ -16,14 +16,21 @@ import java.math.BigDecimal;
 public class ItemCompra {
 
     @Id
+    @Column(nullable = false)
     private String id;
+
+    @Column(nullable = false)
     private Integer quantidade;
+
+    @Column(nullable = false)
     private BigDecimal valor;
-    @ManyToOne
-    @JoinColumn(name = "compra_id")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "compra_id", updatable = false)
     private Compra compra;
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "produto_id", updatable = false)
     private Produto produto;
 
 

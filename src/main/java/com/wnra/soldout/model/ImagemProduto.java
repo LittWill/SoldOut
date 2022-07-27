@@ -14,8 +14,8 @@ import javax.persistence.ManyToOne;
 @Entity
 public class ImagemProduto extends Imagem{
 
-    @ManyToOne
-    @JoinColumn(name = "produto_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
 
 

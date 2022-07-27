@@ -2,10 +2,7 @@ package com.wnra.soldout.model;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
@@ -18,8 +15,13 @@ import java.util.UUID;
 public class Marca {
 
     @Id
+    @Column(updatable = false)
     private String id;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataAdicao;
+
+    @Column(nullable = false)
     private String nome;
 
     @OneToMany(mappedBy = "marca")

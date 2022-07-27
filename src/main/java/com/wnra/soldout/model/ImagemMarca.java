@@ -12,8 +12,8 @@ import javax.persistence.*;
 @Entity
 public class ImagemMarca extends Imagem{
 
-    @ManyToOne
-    @JoinColumn(name = "marca_id")
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "marca_id", nullable = false)
     private Marca marca;
 
 }

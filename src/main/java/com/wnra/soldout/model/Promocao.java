@@ -17,10 +17,19 @@ import java.time.LocalDateTime;
 public class Promocao {
 
     @Id
+    @Column(updatable = false)
     private String id;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
+
+    @Column(nullable = false)
     private LocalDateTime dataExpiracao;
+
+    @Column(nullable = false)
     private BigDecimal valor;
+
+    @Column(nullable = false)
     private Boolean isValorPorcentagem;
 
 

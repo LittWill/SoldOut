@@ -9,6 +9,7 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,22 +19,32 @@ import java.time.LocalDateTime;
 public class Compra {
 
     @Id
+    @Column(updatable = false)
     private String id;
+
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataAdicao;
+
+    @Column(nullable = false)
     private StatusCompra statusCompra;
+
+    @Column(nullable = false)
     private BigDecimal valorFrete;
-    @ManyToOne
-    @JoinColumn(name = "conta_id")
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "conta_id", updatable = false)
     private Conta conta;
-    @ManyToOne
+
+    @ManyToOne(optional = false)
     @JoinColumn(name = "endereco_cep")
     private Endereco endereco;
+
     @ManyToOne
     @JoinColumn(name = "cupom_codigo")
     private Cupom cupom;
-    @ManyToOne
-    @JoinColumn(name = "promocao_id")
-    private Promocao promocao;
+
+    @OneToMany
+    private List<Promocao> promocoesUtilizadas;
 
 
 }

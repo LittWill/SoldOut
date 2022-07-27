@@ -21,6 +21,7 @@ import java.util.UUID;
 public class Cupom {
 
     @Id
+    @Column(updatable = false)
     private String id;
 
     @Column(length = 50, unique = true, updatable = false, nullable = false)
@@ -30,7 +31,7 @@ public class Cupom {
     private BigDecimal valor;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
-    @Column(nullable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao;
 
     @JsonFormat(pattern = "dd-MM-yyyy HH:mm:ss")
