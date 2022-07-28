@@ -30,6 +30,13 @@ public class PromocaoController extends CommonController<Promocao, String, FormP
         super(genericService);
     }
 
+    @PatchMapping("expirar/{promocaoId}")
+    public ResponseEntity<?> expirarPromocaoAntecipadamente (@PathVariable String promocaoId){
+        Promocao promocao = promocaoService.obter(promocaoId);
+        promocao = promocaoService.expirarPromocao(promocao);
+        return ResponseEntity.ok("Promoção expirada com sucesso! " + promocao.getDataExpiracao());
+    }
+
     @PostMapping("{promocaoId}/produtos")
     public ResponseEntity<?> definirPromocaoProdutos(@PathVariable String promocaoId, @RequestBody FormPromocaoProdutosIdDTO formPromocaoDTO){
 

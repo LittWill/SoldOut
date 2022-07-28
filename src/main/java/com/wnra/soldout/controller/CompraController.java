@@ -4,6 +4,7 @@ import com.wnra.soldout.dto.FormCompraDTO;
 import com.wnra.soldout.mapper.ItemCompraMapper;
 import com.wnra.soldout.model.*;
 import com.wnra.soldout.service.*;
+import com.wnra.soldout.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -76,6 +77,18 @@ public class CompraController {
     }
 
     private List<Promocao> extrairPromocoes(List<ItemCompra> itensCompra){
+        boolean algumaPromocaoExpirada = false;
+        for(var itemCompra : itensCompra){
+            Promocao promocao = itemCompra.getProduto().getPromocao();
+            if (promocao != null && DateUtils.isDataExpirada(promocao.getDataExpiracao())){
+                algumaPromocaoExpirada = true;
+                promocaoService.expirarPromocao(promocao);
+            }
+        }
+
+        if (algumaPromocaoExpirada){
+            throw new RuntimeException("Não foi possível concluir a compra! Uma ou mais promoções estão expiradas! Tente novamente!");
+        }
         return itensCompra.stream().map(itemCompra -> itemCompra.getProduto().getPromocao()).collect(Collectors.toList());
     }
 
