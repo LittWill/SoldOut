@@ -45,7 +45,7 @@ public class CompraController {
 
         List<Promocao> promocoesUtilizadas = extrairPromocoes(itensCompra);
 
-        promocaoService.aplicarPromocao(itensCompra);
+        promocaoService.aplicarDescontoPromocao(itensCompra);
 
         Compra compra = new Compra(formCompraDTO.getValorFrete(), conta, endereco, null, promocoesUtilizadas,
                 itensCompra);
