@@ -1,8 +1,5 @@
 package com.wnra.soldout.dto;
 
-import com.wnra.soldout.model.Cupom;
-import com.wnra.soldout.model.Endereco;
-import com.wnra.soldout.model.Promocao;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,7 +13,7 @@ public class FormCompraDTO {
     private BigDecimal valorFrete;
     private String contaId;
     private String enderecoId;
-    private String cupomId;
+    private String cupomCodigo;
     private List<FormItemCompraDTO> itensCompraDTO;
 
 }

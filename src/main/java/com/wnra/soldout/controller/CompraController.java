@@ -4,7 +4,9 @@ import com.wnra.soldout.dto.FormCompraDTO;
 import com.wnra.soldout.mapper.ItemCompraMapper;
 import com.wnra.soldout.model.*;
 import com.wnra.soldout.service.*;
+import com.wnra.soldout.utils.CupomUtils;
 import com.wnra.soldout.utils.DateUtils;
+import com.wnra.soldout.utils.PromocaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -31,6 +33,9 @@ public class CompraController {
     @Autowired
     private ProdutoEstoqueService produtoEstoqueService;
 
+    @Autowired
+    private CupomService cupomService;
+
     @PostMapping
     public ResponseEntity<String> salvar(@RequestBody FormCompraDTO formCompraDTO) {
         List<ItemCompra> itensCompra = extrairItensCompra(formCompraDTO, produtoService);
@@ -46,10 +51,14 @@ public class CompraController {
 
         List<Promocao> promocoesUtilizadas = extrairPromocoes(itensCompra);
 
-        promocaoService.aplicarDescontoPromocao(itensCompra);
+        itensCompra = PromocaoUtils.aplicarDescontoPromocao(itensCompra);
 
         Compra compra = new Compra(formCompraDTO.getValorFrete(), conta, endereco, null, promocoesUtilizadas,
                 itensCompra);
+
+        if (formCompraDTO.getCupomCodigo() != null) {
+            compra = CupomUtils.aplicarCupom(cupomService.obterPorCodigo(formCompraDTO.getCupomCodigo()), compra);
+        }
 
         compra = compraService.salvar(compra);
 
@@ -58,39 +67,35 @@ public class CompraController {
         return ResponseEntity.ok(compra.getId());
     }
 
-
     @GetMapping
-    public ResponseEntity<Page<String>> listar(@PageableDefault Pageable pageable){
+    public ResponseEntity<Page<String>> listar(@PageableDefault Pageable pageable) {
         return ResponseEntity.ok(compraService.listar(pageable).map(compra -> String.valueOf(compra.getId())));
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<String> obter(@PathVariable String id){
+    public ResponseEntity<String> obter(@PathVariable String id) {
         return ResponseEntity.ok(compraService.obter(id).getId());
     }
 
-
-
-
-    private List<ItemCompra> extrairItensCompra(FormCompraDTO formCompraDTO, ProdutoService produtoService){
+    private List<ItemCompra> extrairItensCompra(FormCompraDTO formCompraDTO, ProdutoService produtoService) {
         return formCompraDTO.getItensCompraDTO().stream().map(formItemCompraDTO -> ItemCompraMapper.formDTOToEntity(formItemCompraDTO, produtoService)).collect(Collectors.toList());
     }
 
-    private List<Promocao> extrairPromocoes(List<ItemCompra> itensCompra){
+    private List<Promocao> extrairPromocoes(List<ItemCompra> itensCompra) {
         boolean algumaPromocaoExpirada = false;
-        for(var itemCompra : itensCompra){
+        for (var itemCompra : itensCompra) {
             Promocao promocao = itemCompra.getProduto().getPromocao();
-            if (promocao != null && DateUtils.isDataExpirada(promocao.getDataExpiracao())){
+            if (promocao != null && DateUtils.isDataExpirada(promocao.getDataExpiracao())) {
                 algumaPromocaoExpirada = true;
                 promocaoService.expirarPromocao(promocao);
             }
         }
 
-        if (algumaPromocaoExpirada){
-            throw new RuntimeException("Não foi possível concluir a compra! Uma ou mais promoções estão expiradas! Tente novamente!");
+        if (algumaPromocaoExpirada) {
+            throw new RuntimeException("Não foi possível concluir a compra! Uma ou mais promoções estão expiradas! " +
+                    "Tente novamente!");
         }
         return itensCompra.stream().map(itemCompra -> itemCompra.getProduto().getPromocao()).collect(Collectors.toList());
     }
-
 
 }
