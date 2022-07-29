@@ -14,12 +14,11 @@ public class CompraUtils {
 
         List<ItemCompra> itensCompra = compra.getItensCompra();
 
-        if (comPromocao) {
-           itensCompra = PromocaoUtils.aplicarDescontoPromocao(itensCompra);
-        }
+        valorCompraCustom = BigDecimal.valueOf(itensCompra.stream().mapToDouble(itemCompra -> itemCompra.getValor().doubleValue() * itemCompra.getQuantidade()).sum());
 
-        valorCompraCustom =
-                BigDecimal.valueOf(itensCompra.stream().mapToDouble(itemCompra -> itemCompra.getValor().doubleValue() * itemCompra.getQuantidade()).sum());
+        if (comPromocao) {
+            valorCompraCustom = PromocaoUtils.descontarValorPromocao(itensCompra);
+        }
 
         if (comCupom) {
             valorCompraCustom = CupomUtils.descontarValorCupom(compra.getCupom(), valorCompraCustom);
@@ -50,7 +49,7 @@ public class CompraUtils {
 
         List<ItemCompra> itensCompra = compra.getItensCompra();
 
-        itensCompra = PromocaoUtils.aplicarDescontoPromocao(itensCompra);
+        //itensCompra = PromocaoUtils.aplicarDescontoPromocao(itensCompra);
 
         valorLiquido =
                 BigDecimal.valueOf(itensCompra.stream().mapToDouble(itemCompra -> itemCompra.getValor().doubleValue() * itemCompra.getQuantidade()).sum());

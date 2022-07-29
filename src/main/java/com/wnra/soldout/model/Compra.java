@@ -1,7 +1,6 @@
 package com.wnra.soldout.model;
 
 import com.wnra.soldout.enums.StatusCompra;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -47,11 +46,7 @@ public class Compra {
     @JoinColumn(name = "cupom_codigo")
     private Cupom cupom;
 
-    @OneToMany
-    private List<Promocao> promocoesUtilizadas;
-
-    public Compra(BigDecimal valorFrete, Conta conta, Endereco endereco, Cupom cupom,
-                  List<Promocao> promocoesUtilizadas, List<ItemCompra> itensCompra) {
+    public Compra(BigDecimal valorFrete, Conta conta, Endereco endereco, Cupom cupom, List<ItemCompra> itensCompra) {
         this.id = UUID.randomUUID().toString();
         this.dataAdicao = LocalDateTime.now();
         this.statusCompra = StatusCompra.PROCESSAMENTO;
@@ -59,7 +54,6 @@ public class Compra {
         this.conta = conta;
         this.endereco = endereco;
         this.cupom = cupom;
-        this.promocoesUtilizadas = promocoesUtilizadas;
         this.itensCompra = itensCompra;
     }
 

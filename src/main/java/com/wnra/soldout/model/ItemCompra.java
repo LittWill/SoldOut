@@ -1,13 +1,11 @@
 package com.wnra.soldout.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
-import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -28,6 +26,10 @@ public class ItemCompra {
     @ManyToOne(optional = false)
     @JoinColumn(name = "produto_id", updatable = false)
     private Produto produto;
+
+    @ManyToOne
+    @JoinColumn(name = "promocao_utilizada_id")
+    private Promocao promocaoUtilizada;
 
     public ItemCompra(Integer quantidade, BigDecimal valor, Produto produto) {
         this.quantidade = quantidade;

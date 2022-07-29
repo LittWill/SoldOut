@@ -8,22 +8,23 @@ import java.util.List;
 
 public class PromocaoUtils {
 
-    public static List<ItemCompra> aplicarDescontoPromocao(List<ItemCompra> itensCompra) {
-        itensCompra.forEach(itemCompra -> {
-            boolean promocaoAtiva = itemCompra.getProduto().getPromocao() != null && !DateUtils.isDataExpirada(itemCompra.getProduto().getPromocao().getDataExpiracao());
+    public static BigDecimal descontarValorPromocao(List<ItemCompra> itensCompra) {
+        BigDecimal valorTotalComPromocao = BigDecimal.ZERO;
 
-            if (promocaoAtiva) {
-                Promocao promocao = itemCompra.getProduto().getPromocao();
+        for(var itemCompra : itensCompra){
+            Promocao promocao = itemCompra.getPromocaoUtilizada();
 
-                if (Boolean.TRUE.equals(promocao.getIsValorPorcentagem())) {
-                    itemCompra.setValor(BigDecimal.valueOf(itemCompra.getValor().doubleValue() - (itemCompra.getValor().doubleValue() * promocao.getValor().doubleValue() / 100)));
-                } else {
-                    itemCompra.setValor(BigDecimal.valueOf(itemCompra.getValor().doubleValue() - promocao.getValor().doubleValue()));
-                }
+            if (Boolean.TRUE.equals(promocao.getIsValorPorcentagem())) {
+                itemCompra.setValor(BigDecimal.valueOf(itemCompra.getValor().doubleValue() - (itemCompra.getValor().doubleValue() * CalculosUtils.converterValorParaPorcentagem(promocao.getValor()))));
+            } else {
+                itemCompra.setValor(BigDecimal.valueOf(itemCompra.getValor().doubleValue() - promocao.getValor().doubleValue()));
             }
-        });
 
-        return itensCompra;
+            valorTotalComPromocao = BigDecimal.valueOf(valorTotalComPromocao.doubleValue() + itemCompra.getValor().doubleValue());
+
+        }
+
+        return valorTotalComPromocao;
     }
 
     public static BigDecimal descontarValorPromocao(Promocao promocao, BigDecimal valor){

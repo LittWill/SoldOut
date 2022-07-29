@@ -6,7 +6,6 @@ import com.wnra.soldout.model.*;
 import com.wnra.soldout.service.*;
 import com.wnra.soldout.utils.CupomUtils;
 import com.wnra.soldout.utils.DateUtils;
-import com.wnra.soldout.utils.PromocaoUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -40,6 +39,8 @@ public class CompraController {
     public ResponseEntity<String> salvar(@RequestBody FormCompraDTO formCompraDTO) {
         List<ItemCompra> itensCompra = extrairItensCompra(formCompraDTO, produtoService);
 
+        promocaoService.verificarPromocaoExpirada(itensCompra);
+
         produtoEstoqueService.verificarViolacaoCompraExclusiva(itensCompra);
 
         produtoEstoqueService.verificarDisponibilidadeEstoque(itensCompra);
@@ -49,12 +50,12 @@ public class CompraController {
         Endereco endereco = new Endereco();
         endereco.setId(formCompraDTO.getEnderecoId());
 
-        List<Promocao> promocoesUtilizadas = extrairPromocoes(itensCompra);
 
-        itensCompra = PromocaoUtils.aplicarDescontoPromocao(itensCompra);
+        itensCompra.forEach(itemCompra -> itemCompra.setPromocaoUtilizada(itemCompra.getProduto().getPromocao()));
 
-        Compra compra = new Compra(formCompraDTO.getValorFrete(), conta, endereco, null, promocoesUtilizadas,
+        Compra compra = new Compra(formCompraDTO.getValorFrete(), conta, endereco, null,
                 itensCompra);
+
 
         if (formCompraDTO.getCupomCodigo() != null) {
             compra = CupomUtils.aplicarCupom(cupomService.obterPorCodigo(formCompraDTO.getCupomCodigo()), compra);
