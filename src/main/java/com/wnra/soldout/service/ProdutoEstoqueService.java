@@ -2,6 +2,7 @@ package com.wnra.soldout.service;
 
 import com.wnra.soldout.model.Compra;
 import com.wnra.soldout.model.ItemCompra;
+import com.wnra.soldout.model.Tamanho;
 import com.wnra.soldout.model.TenisEstoque;
 import com.wnra.soldout.repository.ProdutoEstoqueRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,22 +27,22 @@ public class ProdutoEstoqueService extends GenericService<TenisEstoque, String> 
 
     public void verificarDisponibilidadeEstoque(List<ItemCompra> itensCompra){
         itensCompra.forEach(itemCompra -> {
-            TenisEstoque produtoEstoque = this.obterPorProdutoId(itemCompra.getProduto().getId());
+            TenisEstoque produtoEstoque = this.obterPorTenisIdETamanhoId(itemCompra.getProduto().getId(), itemCompra.getTamanho());
             if (produtoEstoque.getQuantidade() < itemCompra.getQuantidade()){
                 throw new RuntimeException("Não há estoque disponível!");
             }
         });
     }
 
-    public TenisEstoque obterPorProdutoId(String produtoId){
-        return produtoEstoqueRepository.findByTenisId(produtoId).orElseThrow(() -> new RuntimeException("Estoque de produto não encontrado!"));
+    public TenisEstoque obterPorTenisIdETamanhoId(String produtoId, Tamanho tamanho){
+        return produtoEstoqueRepository.findByTenisIdAndTamanho(produtoId, tamanho).orElseThrow(() -> new RuntimeException("Estoque de produto não encontrado!"));
     }
 
     public void descontarEstoque(Compra compra){
         List<ItemCompra> itensCompra = compra.getItensCompra();
         List<TenisEstoque> produtosEstoque = new ArrayList<>();
         itensCompra.forEach(itemCompra -> {
-            TenisEstoque produtoEstoque = this.obterPorProdutoId(itemCompra.getProduto().getId());
+            TenisEstoque produtoEstoque = this.obterPorTenisIdETamanhoId(itemCompra.getProduto().getId(), itemCompra.getTamanho());
             produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() - itemCompra.getQuantidade());
             produtosEstoque.add(produtoEstoque);
         });

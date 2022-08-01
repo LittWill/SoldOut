@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @NoArgsConstructor
 @Getter
@@ -28,17 +29,19 @@ public class ItemCompra {
     private Produto produto;
 
     @ManyToOne
-    @JoinColumn(name = "tamanho_id")
+    @JoinColumn(name = "tamanho_id", nullable = false)
     private Tamanho tamanho;
 
     @ManyToOne
     @JoinColumn(name = "promocao_utilizada_id")
     private Promocao promocaoUtilizada;
 
-    public ItemCompra(Integer quantidade, BigDecimal valor, Produto produto) {
+    public ItemCompra(Integer quantidade, BigDecimal valor, Produto produto, Tamanho tamanho) {
+        this.id = UUID.randomUUID().toString();
         this.quantidade = quantidade;
         this.valor = valor;
         this.produto = produto;
+        this.tamanho = tamanho;
     }
 
 }
