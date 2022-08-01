@@ -2,9 +2,9 @@ package com.wnra.soldout.mapper;
 
 import com.wnra.soldout.dto.FormItemCompraDTO;
 import com.wnra.soldout.model.ItemCompra;
+import com.wnra.soldout.model.Tamanho;
 import com.wnra.soldout.service.ProdutoService;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.UUID;
 
@@ -17,6 +17,7 @@ public class ItemCompraMapper {
         itemCompra.setId(UUID.randomUUID().toString());
         itemCompra.setProduto(produtoService.obter(formItemCompraDTO.getProdutoId()));
         itemCompra.setValor(itemCompra.getProduto().getPreco());
+        itemCompra.setTamanho(new Tamanho(formItemCompraDTO.getTamanhoId()));
         return itemCompra;
     }
             

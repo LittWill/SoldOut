@@ -12,4 +12,6 @@ public class FormItemCompraDTO {
 
     private String produtoId;
 
+    private String tamanhoId;
+
 }

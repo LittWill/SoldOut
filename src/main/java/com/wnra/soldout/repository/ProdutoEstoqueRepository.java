@@ -1,16 +1,14 @@
 package com.wnra.soldout.repository;
 
-import com.wnra.soldout.model.Categoria;
-import com.wnra.soldout.model.Produto;
-import com.wnra.soldout.model.ProdutoEstoque;
+import com.wnra.soldout.model.TenisEstoque;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface ProdutoEstoqueRepository extends JpaRepository<ProdutoEstoque, String> {
+public interface ProdutoEstoqueRepository extends JpaRepository<TenisEstoque, String> {
 
-    Optional<ProdutoEstoque> findByProdutoId(String produtoId);
+    Optional<TenisEstoque> findByTenisId(String tenisId);
 
 }

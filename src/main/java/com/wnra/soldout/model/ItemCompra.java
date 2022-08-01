@@ -28,6 +28,10 @@ public class ItemCompra {
     private Produto produto;
 
     @ManyToOne
+    @JoinColumn(name = "tamanho_id")
+    private Tamanho tamanho;
+
+    @ManyToOne
     @JoinColumn(name = "promocao_utilizada_id")
     private Promocao promocaoUtilizada;
 

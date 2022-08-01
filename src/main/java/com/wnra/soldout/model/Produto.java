@@ -1,6 +1,5 @@
 package com.wnra.soldout.model;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +14,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Entity
-public class Produto {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract                                                                                                                                                                                                                     class Produto {
 
     @Id
     @Column(updatable = false)

@@ -1,9 +1,7 @@
 package com.wnra.soldout.controller;
 
 import com.wnra.soldout.dto.FormFavoritoDTO;
-import com.wnra.soldout.model.Conta;
 import com.wnra.soldout.model.Favorito;
-import com.wnra.soldout.model.Produto;
 import com.wnra.soldout.service.FavoritoService;
 import com.wnra.soldout.service.GenericService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,11 +21,7 @@ public class FavoritoController extends CommonController<Favorito, String, FormF
 
     @Override
     protected Favorito converterFormDTO(FormFavoritoDTO formFavoritoDTO) {
-        Produto produto = new Produto();
-        produto.setId(formFavoritoDTO.getProdutoId());
-        Conta conta = new Conta();
-        conta.setId(formFavoritoDTO.getContaId());
-        return new Favorito(produto, conta);
+        return null;
     }
 
 }
