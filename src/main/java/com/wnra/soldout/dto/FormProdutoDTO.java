@@ -18,5 +18,6 @@ public class FormProdutoDTO {
     private String promocaoId;
     private List<FormCategoriaDTO> categorias;
     private List<FormGeneroDTO> generos;
+    private List<FormTamanhoDTO> tamanhos;
 
 }

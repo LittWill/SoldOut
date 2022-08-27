@@ -2,16 +2,27 @@ package com.wnra.soldout.controller;
 
 import com.wnra.soldout.dto.FormCompraDTO;
 import com.wnra.soldout.mapper.ItemCompraMapper;
-import com.wnra.soldout.model.*;
-import com.wnra.soldout.service.*;
+import com.wnra.soldout.model.Compra;
+import com.wnra.soldout.model.Conta;
+import com.wnra.soldout.model.Endereco;
+import com.wnra.soldout.model.ItemCompra;
+import com.wnra.soldout.service.CompraService;
+import com.wnra.soldout.service.CupomService;
+import com.wnra.soldout.service.ProdutoEstoqueService;
+import com.wnra.soldout.service.ProdutoService;
+import com.wnra.soldout.service.PromocaoService;
 import com.wnra.soldout.utils.CupomUtils;
-import com.wnra.soldout.utils.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -58,7 +69,7 @@ public class CompraController {
 
 
         if (formCompraDTO.getCupomCodigo() != null) {
-            compra = CupomUtils.aplicarCupom(cupomService.obterPorCodigo(formCompraDTO.getCupomCodigo()), compra);
+            CupomUtils.aplicarCupom(cupomService.obterPorCodigo(formCompraDTO.getCupomCodigo()), compra);
         }
 
         compra = compraService.salvar(compra);
@@ -81,22 +92,4 @@ public class CompraController {
     private List<ItemCompra> extrairItensCompra(FormCompraDTO formCompraDTO, ProdutoService produtoService) {
         return formCompraDTO.getItensCompraDTO().stream().map(formItemCompraDTO -> ItemCompraMapper.formDTOToEntity(formItemCompraDTO, produtoService)).collect(Collectors.toList());
     }
-
-    private List<Promocao> extrairPromocoes(List<ItemCompra> itensCompra) {
-        boolean algumaPromocaoExpirada = false;
-        for (var itemCompra : itensCompra) {
-            Promocao promocao = itemCompra.getProduto().getPromocao();
-            if (promocao != null && DateUtils.isDataExpirada(promocao.getDataExpiracao())) {
-                algumaPromocaoExpirada = true;
-                promocaoService.expirarPromocao(promocao);
-            }
-        }
-
-        if (algumaPromocaoExpirada) {
-            throw new RuntimeException("Não foi possível concluir a compra! Uma ou mais promoções estão expiradas! " +
-                    "Tente novamente!");
-        }
-        return itensCompra.stream().map(itemCompra -> itemCompra.getProduto().getPromocao()).collect(Collectors.toList());
-    }
-
 }
