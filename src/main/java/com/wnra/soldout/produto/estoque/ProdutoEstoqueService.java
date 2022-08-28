@@ -19,7 +19,7 @@ public class ProdutoEstoqueService extends GenericService<TenisEstoque, String> 
 
     public void verificarViolacaoCompraExclusiva(List<ItemCompra> itensCompra){
         itensCompra.forEach(itemCompra -> {
-            if (Boolean.TRUE.equals(itemCompra.getProduto().getCompraUnica()) && itemCompra.getQuantidade() > 1){
+            if (Boolean.TRUE.equals(itemCompra.getProduct().getUniqueBuy()) && itemCompra.getQuantidade() > 1){
                 throw new RuntimeException("Quantidade não permitida para um ou mais itens!");
             }
         });
@@ -27,7 +27,7 @@ public class ProdutoEstoqueService extends GenericService<TenisEstoque, String> 
 
     public void verificarDisponibilidadeEstoque(List<ItemCompra> itensCompra){
         itensCompra.forEach(itemCompra -> {
-            TenisEstoque produtoEstoque = this.obterPorTenisIdETamanhoId(itemCompra.getProduto().getId(), itemCompra.getTamanho());
+            TenisEstoque produtoEstoque = this.obterPorTenisIdETamanhoId(itemCompra.getProduct().getId(), itemCompra.getTamanho());
             if (produtoEstoque.getQuantidade() < itemCompra.getQuantidade()){
                 throw new RuntimeException("Não há estoque disponível!");
             }
@@ -42,7 +42,7 @@ public class ProdutoEstoqueService extends GenericService<TenisEstoque, String> 
         List<ItemCompra> itensCompra = compra.getItensCompra();
         List<TenisEstoque> produtosEstoque = new ArrayList<>();
         itensCompra.forEach(itemCompra -> {
-            TenisEstoque produtoEstoque = this.obterPorTenisIdETamanhoId(itemCompra.getProduto().getId(), itemCompra.getTamanho());
+            TenisEstoque produtoEstoque = this.obterPorTenisIdETamanhoId(itemCompra.getProduct().getId(), itemCompra.getTamanho());
             produtoEstoque.setQuantidade(produtoEstoque.getQuantidade() - itemCompra.getQuantidade());
             produtosEstoque.add(produtoEstoque);
         });

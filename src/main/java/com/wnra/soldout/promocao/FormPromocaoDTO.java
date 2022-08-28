@@ -1,4 +1,4 @@
-package com.wnra.soldout.produto;
+package com.wnra.soldout.promocao;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

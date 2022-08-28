@@ -6,7 +6,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -26,17 +30,17 @@ public class Favorito {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "produto_id", updatable = false, unique = true)
-    private Produto produto;
+    private Product product;
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "conta_id", updatable = false, nullable = false)
     @JsonIgnore
     private Conta conta;
 
-    public Favorito(Produto produto, Conta conta) {
+    public Favorito(Product product, Conta conta) {
         this.id = UUID.randomUUID().toString();
         this.dataAdicao = LocalDateTime.now();
-        this.produto = produto;
+        this.product = product;
         this.conta = conta;
     }
 

@@ -24,7 +24,7 @@ public class CupomUtils {
         BigDecimal valorTotalDescontoPromocoes = BigDecimal.valueOf(0);
 
         for (var itemCompra : itensCompra){
-            Promocao promocao = itemCompra.getProduto().getPromocao();
+            Promocao promocao = itemCompra.getProduct().getPromotion();
             BigDecimal valorDescontoPromocao;
 
             if (Boolean.TRUE.equals(promocao.getIsValorPorcentagem())){

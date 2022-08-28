@@ -13,14 +13,14 @@ import java.util.List;
 @Setter
 public class FormProdutoDTO {
 
-    private Boolean compraUnica;
-    private String descricao;
-    private String modelo;
-    private BigDecimal preco;
-    private String marcaId;
-    private String promocaoId;
-    private List<FormCategoryDTO> categorias;
-    private List<FormGeneroDTO> generos;
+    private Boolean uniqueBuy;
+    private String description;
+    private String model;
+    private BigDecimal price;
+    private String brandId;
+    private String promotionId;
+    private List<FormCategoryDTO> categories;
+    private List<FormGeneroDTO> genres;
     private List<FormTamanhoDTO> tamanhos;
 
 }

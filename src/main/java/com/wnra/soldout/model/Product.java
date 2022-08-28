@@ -23,59 +23,59 @@ import java.util.UUID;
 @Setter
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class Produto {
+public abstract class Product {
 
     @Id
     @Column(updatable = false)
     private String id;
 
     @Column(nullable = false, updatable = false)
-    private LocalDateTime dataAdicao;
+    private LocalDateTime addDate;
 
     @Column(nullable = false)
-    private String descricao;
+    private String description;
 
     @Column(nullable = false)
-    private String modelo;
+    private String model;
 
     @Column(nullable = false)
-    private BigDecimal preco;
+    private BigDecimal price;
 
     @Column(nullable = false)
-    private Boolean compraUnica;
+    private Boolean uniqueBuy;
 
     @ManyToOne
-    @JoinColumn(name = "promocao_id")
-    private Promocao promocao;
+    @JoinColumn(name = "promotion_id")
+    private Promocao promotion;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "marca_id", updatable = false)
-    private Marca marca;
+    @JoinColumn(name = "brand_id", updatable = false)
+    private Marca brand;
 
     @ManyToMany
     private List<Category> categories;
 
     @ManyToMany
-    private List<Genero> generos;
+    private List<Genero> genres;
 
-    @OneToMany(mappedBy = "produto")
-    private List<ImagemProduto> imagens;
+    @OneToMany(mappedBy = "product")
+    private List<ImagemProduto> images;
 
-    public Produto(String descricao, String modelo, BigDecimal preco, Boolean compraUnica, Promocao promocao,
-                   Marca marca, List<Category> categories, List<Genero> generos) {
+    public Product(String description, String model, BigDecimal price, Boolean uniqueBuy, Promocao promotion,
+                   Marca brand, List<Category> categories, List<Genero> genres) {
         this.id = UUID.randomUUID().toString();
-        this.dataAdicao = LocalDateTime.now();
-        this.descricao = descricao;
-        this.modelo = modelo;
-        this.preco = preco;
-        this.compraUnica = compraUnica;
-        this.promocao = promocao;
-        this.marca = marca;
+        this.addDate = LocalDateTime.now();
+        this.description = description;
+        this.model = model;
+        this.price = price;
+        this.uniqueBuy = uniqueBuy;
+        this.promotion = promotion;
+        this.brand = brand;
         this.categories = categories;
-        this.generos = generos;
+        this.genres = genres;
     }
 
-    public Produto(String id) {
+    public Product(String id) {
         this.id = id;
     }
 

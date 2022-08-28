@@ -14,7 +14,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @Entity
-public class Tenis extends Produto{
+public class Tenis extends Product {
 
     public Tenis(String descricao, String modelo, BigDecimal preco, Boolean compraUnica, Promocao promocao,
                  Marca marca, List<Category> categories, List<Genero> generos, String cor, List<Tamanho> tamanhos) {

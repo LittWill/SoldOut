@@ -2,9 +2,8 @@ package com.wnra.soldout.promocao;
 
 import com.wnra.soldout.common.controller.CommonController;
 import com.wnra.soldout.common.service.GenericService;
-import com.wnra.soldout.model.Produto;
+import com.wnra.soldout.model.Product;
 import com.wnra.soldout.model.Promocao;
-import com.wnra.soldout.produto.FormPromocaoDTO;
 import com.wnra.soldout.produto.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -44,12 +43,12 @@ public class PromocaoController extends CommonController<Promocao, String, FormP
 
         Promocao promocao = promocaoService.get(promocaoId);
 
-        List<Produto> produtos =
+        List<Product> products =
                 formPromocaoDTO.getProdutosId().stream().map(formIdDTO -> produtoService.get(formIdDTO.getId())).collect(Collectors.toList());
 
-        promocaoService.definirPromocao(produtos, promocao);
+        promocaoService.definirPromocao(products, promocao);
 
-        return ResponseEntity.ok("Promoção definida para " + produtos.size() + " produto(s)!");
+        return ResponseEntity.ok("Promoção definida para " + products.size() + " produto(s)!");
     }
 
     @Override

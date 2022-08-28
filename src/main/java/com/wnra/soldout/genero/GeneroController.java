@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("generos")
+@RequestMapping("genres")
 public class GeneroController extends CommonController<Genero, String, FormGeneroDTO> {
 
     @Autowired

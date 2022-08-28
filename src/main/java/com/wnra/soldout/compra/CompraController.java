@@ -59,7 +59,7 @@ public class CompraController {
         endereco.setId(formCompraDTO.getEnderecoId());
 
 
-        itensCompra.forEach(itemCompra -> itemCompra.setPromocaoUtilizada(itemCompra.getProduto().getPromocao()));
+        itensCompra.forEach(itemCompra -> itemCompra.setPromocaoUtilizada(itemCompra.getProduct().getPromotion()));
 
         Compra compra = new Compra(formCompraDTO.getValorFrete(), conta, endereco, null,
                 itensCompra);

@@ -4,7 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.math.BigDecimal;
 import java.util.UUID;
 
@@ -26,7 +30,7 @@ public class ItemCompra {
 
     @ManyToOne(optional = false)
     @JoinColumn(name = "produto_id", updatable = false)
-    private Produto produto;
+    private Product product;
 
     @ManyToOne
     @JoinColumn(name = "tamanho_id", nullable = false)
@@ -36,11 +40,11 @@ public class ItemCompra {
     @JoinColumn(name = "promocao_utilizada_id")
     private Promocao promocaoUtilizada;
 
-    public ItemCompra(Integer quantidade, BigDecimal valor, Produto produto, Tamanho tamanho) {
+    public ItemCompra(Integer quantidade, BigDecimal valor, Product product, Tamanho tamanho) {
         this.id = UUID.randomUUID().toString();
         this.quantidade = quantidade;
         this.valor = valor;
-        this.produto = produto;
+        this.product = product;
         this.tamanho = tamanho;
     }
 
