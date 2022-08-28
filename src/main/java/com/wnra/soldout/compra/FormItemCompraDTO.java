@@ -1,0 +1,17 @@
+package com.wnra.soldout.compra;
+
+import lombok.Getter;
+import lombok.Setter;
+
+
+@Getter
+@Setter
+public class FormItemCompraDTO {
+
+    private Integer quantidade;
+
+    private String produtoId;
+
+    private String tamanhoId;
+
+}

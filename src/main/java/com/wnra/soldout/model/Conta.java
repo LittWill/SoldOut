@@ -1,9 +1,18 @@
 package com.wnra.soldout.model;
 
-import com.wnra.soldout.enums.StatusConta;
-import lombok.*;
+import com.wnra.soldout.conta.StatusConta;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
