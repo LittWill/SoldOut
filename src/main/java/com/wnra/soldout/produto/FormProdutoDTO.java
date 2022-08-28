@@ -1,6 +1,6 @@
 package com.wnra.soldout.produto;
 
-import com.wnra.soldout.categoria.FormCategoryDTO;
+import com.wnra.soldout.category.FormCategoryDTO;
 import com.wnra.soldout.genero.FormGeneroDTO;
 import com.wnra.soldout.produto.tipos.tenis.tamanho.FormTamanhoDTO;
 import lombok.Getter;

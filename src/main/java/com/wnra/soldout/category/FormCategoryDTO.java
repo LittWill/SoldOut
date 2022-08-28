@@ -1,4 +1,4 @@
-package com.wnra.soldout.categoria;
+package com.wnra.soldout.category;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,14 +10,6 @@ import javax.validation.constraints.NotBlank;
 public class FormCategoryDTO {
 
     @NotBlank(message = "O nome da categoria não pode ser nulo!")
-    private String nome;
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
+    private String name;
 
 }

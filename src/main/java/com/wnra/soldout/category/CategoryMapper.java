@@ -1,4 +1,4 @@
-package com.wnra.soldout.categoria;
+package com.wnra.soldout.category;
 
 import com.wnra.soldout.model.Category;
 import org.mapstruct.Mapper;
@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 @Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.WARN, imports = {LocalDateTime.class})
 public interface CategoryMapper {
 
-    @Mapping(target = "dataAdicao", expression = "java(LocalDateTime.now())")
+    @Mapping(target = "addData", expression = "java(LocalDateTime.now())")
     Category toModel(FormCategoryDTO formCategoryDTO);
     CategoryResponse toResponse(Category category);
 

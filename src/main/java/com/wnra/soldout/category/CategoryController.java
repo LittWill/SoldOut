@@ -1,4 +1,4 @@
-package com.wnra.soldout.categoria;
+package com.wnra.soldout.category;
 
 import com.wnra.soldout.model.Category;
 import lombok.RequiredArgsConstructor;

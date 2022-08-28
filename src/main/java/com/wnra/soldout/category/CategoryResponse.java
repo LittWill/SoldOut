@@ -1,4 +1,4 @@
-package com.wnra.soldout.categoria;
+package com.wnra.soldout.category;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 public class CategoryResponse {
 
-    private String nome;
+    private String name;
 
 }

@@ -1,7 +1,7 @@
 package com.wnra.soldout.produto.tipos.tenis;
 
-import com.wnra.soldout.categoria.CategoryService;
-import com.wnra.soldout.categoria.FormCategoryDTO;
+import com.wnra.soldout.category.CategoryService;
+import com.wnra.soldout.category.FormCategoryDTO;
 import com.wnra.soldout.genero.FormGeneroDTO;
 import com.wnra.soldout.genero.GeneroService;
 import com.wnra.soldout.marca.MarcaService;
@@ -22,7 +22,7 @@ public class TenisMapper {
         //Promocao promocao = promocaoService.obter(dto.getPromocaoId());
         Marca marca = marcaService.get(dto.getMarcaId());
 
-        List<String> idsCategorias = dto.getCategorias().stream().map(FormCategoryDTO::getNome).collect(Collectors.toList());
+        List<String> idsCategorias = dto.getCategorias().stream().map(FormCategoryDTO::getName).collect(Collectors.toList());
         List<Category> categories = categoryService.obterTodosPorId(idsCategorias);
 
         List<String> idsGeneros = dto.getGeneros().stream().map(FormGeneroDTO::getNome).collect(Collectors.toList());
