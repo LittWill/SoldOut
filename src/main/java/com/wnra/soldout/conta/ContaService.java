@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class ContaService extends GenericService<Conta, String> {
 
     public Conta salvarEndereco(String contaId, Endereco endereco) {
-        Conta conta = obter(contaId);
+        Conta conta = get(contaId);
         conta.getEnderecos().add(endereco);
         return repository.save(conta);
     }

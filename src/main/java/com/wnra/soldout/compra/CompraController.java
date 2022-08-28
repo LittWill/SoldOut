@@ -69,7 +69,7 @@ public class CompraController {
             CupomUtils.aplicarCupom(cupomService.obterPorCodigo(formCompraDTO.getCupomCodigo()), compra);
         }
 
-        compra = compraService.salvar(compra);
+        compra = compraService.save(compra);
 
         produtoEstoqueService.descontarEstoque(compra);
 
@@ -78,12 +78,12 @@ public class CompraController {
 
     @GetMapping
     public ResponseEntity<Page<String>> listar(@PageableDefault Pageable pageable) {
-        return ResponseEntity.ok(compraService.listar(pageable).map(compra -> String.valueOf(compra.getId())));
+        return ResponseEntity.ok(compraService.findAll(pageable).map(compra -> String.valueOf(compra.getId())));
     }
 
     @GetMapping("{id}")
     public ResponseEntity<String> obter(@PathVariable String id) {
-        return ResponseEntity.ok(compraService.obter(id).getId());
+        return ResponseEntity.ok(compraService.get(id).getId());
     }
 
     private List<ItemCompra> extrairItensCompra(FormCompraDTO formCompraDTO, ProdutoService produtoService) {

@@ -25,7 +25,7 @@ public class CupomService extends GenericService<Cupom, String> {
     }
 
     public Cupom atualizar(String id, Cupom cupomAtualizado) {
-        Cupom cupomAntigo = super.obter(id);
+        Cupom cupomAntigo = super.get(id);
         cupomAtualizado.setId(cupomAntigo.getId());
         cupomAtualizado.setCodigo(cupomAntigo.getCodigo());
         cupomAtualizado.setDataCriacao(cupomAntigo.getDataCriacao());

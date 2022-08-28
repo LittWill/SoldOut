@@ -20,17 +20,17 @@ public abstract class CommonController<T, ID, FormDTO> {
     @PostMapping
     public ResponseEntity<T> salvar(@RequestBody FormDTO formDTO){
         T t = this.converterFormDTO(formDTO);
-        return ResponseEntity.ok(genericService.salvar(t));
+        return ResponseEntity.ok(genericService.save(t));
     }
 
     @GetMapping("{id}")
     public ResponseEntity<T> obter(@PathVariable ID id){
-        return ResponseEntity.ok(genericService.obter(id));
+        return ResponseEntity.ok(genericService.get(id));
     }
 
     @GetMapping
     public ResponseEntity<Page<T>> listar(@PageableDefault Pageable pageable){
-        return ResponseEntity.ok(genericService.listar(pageable));
+        return ResponseEntity.ok(genericService.findAll(pageable));
     }
 
     protected abstract T converterFormDTO(FormDTO formDTO);

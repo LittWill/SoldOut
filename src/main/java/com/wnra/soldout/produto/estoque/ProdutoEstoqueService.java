@@ -51,9 +51,9 @@ public class ProdutoEstoqueService extends GenericService<TenisEstoque, String> 
     }
 
     public TenisEstoque alterarQuantidade(String id, Integer quantidade) {
-        TenisEstoque estoque = super.obter(id);
+        TenisEstoque estoque = super.get(id);
         estoque.setQuantidade(quantidade);
-        estoque = super.salvar(estoque);
+        estoque = super.save(estoque);
         return estoque;
     }
 

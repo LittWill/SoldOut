@@ -8,9 +8,9 @@ import org.springframework.stereotype.Service;
 public class MarcaService extends GenericService<Marca, String> {
 
     public Marca alterar(String id, Marca marcaAtualizada){
-        Marca marcaAntiga = super.obter(id);
+        Marca marcaAntiga = super.get(id);
         marcaAtualizada.setId(marcaAntiga.getId());
-        return super.salvar(marcaAtualizada);
+        return super.save(marcaAtualizada);
     }
 
 }

@@ -53,7 +53,7 @@ public abstract class Produto {
     private Marca marca;
 
     @ManyToMany
-    private List<Categoria> categorias;
+    private List<Category> categories;
 
     @ManyToMany
     private List<Genero> generos;
@@ -62,7 +62,7 @@ public abstract class Produto {
     private List<ImagemProduto> imagens;
 
     public Produto(String descricao, String modelo, BigDecimal preco, Boolean compraUnica, Promocao promocao,
-                   Marca marca, List<Categoria> categorias, List<Genero> generos) {
+                   Marca marca, List<Category> categories, List<Genero> generos) {
         this.id = UUID.randomUUID().toString();
         this.dataAdicao = LocalDateTime.now();
         this.descricao = descricao;
@@ -71,7 +71,7 @@ public abstract class Produto {
         this.compraUnica = compraUnica;
         this.promocao = promocao;
         this.marca = marca;
-        this.categorias = categorias;
+        this.categories = categories;
         this.generos = generos;
     }
 

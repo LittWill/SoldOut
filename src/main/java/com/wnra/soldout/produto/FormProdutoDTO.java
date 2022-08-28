@@ -1,6 +1,6 @@
 package com.wnra.soldout.produto;
 
-import com.wnra.soldout.categoria.FormCategoriaDTO;
+import com.wnra.soldout.categoria.FormCategoryDTO;
 import com.wnra.soldout.genero.FormGeneroDTO;
 import com.wnra.soldout.produto.tipos.tenis.tamanho.FormTamanhoDTO;
 import lombok.Getter;
@@ -19,7 +19,7 @@ public class FormProdutoDTO {
     private BigDecimal preco;
     private String marcaId;
     private String promocaoId;
-    private List<FormCategoriaDTO> categorias;
+    private List<FormCategoryDTO> categorias;
     private List<FormGeneroDTO> generos;
     private List<FormTamanhoDTO> tamanhos;
 

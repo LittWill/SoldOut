@@ -1,14 +1,7 @@
 package com.wnra.soldout.promocao;
 
-import com.wnra.soldout.model.Promocao;
-import com.wnra.soldout.produto.FormPromocaoDTO;
-import org.modelmapper.ModelMapper;
-
-import java.time.LocalDateTime;
-import java.util.UUID;
-
 public class PromocaoMapper {
-
+/*
     private final static ModelMapper modelMapper = new ModelMapper();
     
     public static Promocao formDTOToEntity(FormPromocaoDTO formPromocaoDTO){
@@ -17,6 +10,8 @@ public class PromocaoMapper {
         promocao.setDataCriacao(LocalDateTime.now());
         return promocao;
     }
+
+ */
             
             
 }

@@ -1,6 +1,9 @@
 package com.wnra.soldout.model;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,17 +15,12 @@ import java.time.LocalDateTime;
 @Setter
 @ToString
 @Entity
-public class Categoria {
+public class Category {
 
     @Id
     @Column(length = 50, updatable = false)
-    private String nome;
+    private String name;
     @Column(nullable = false, updatable = false)
-    private LocalDateTime dataAdicao;
-
-    public Categoria (String nome){
-        this.nome = nome;
-        this.dataAdicao = LocalDateTime.now();
-    }
+    private LocalDateTime addData;
 
 }

@@ -17,8 +17,8 @@ import java.util.List;
 public class Tenis extends Produto{
 
     public Tenis(String descricao, String modelo, BigDecimal preco, Boolean compraUnica, Promocao promocao,
-                 Marca marca, List<Categoria> categorias, List<Genero> generos, String cor, List<Tamanho> tamanhos) {
-        super(descricao, modelo, preco, compraUnica, promocao, marca, categorias, generos);
+                 Marca marca, List<Category> categories, List<Genero> generos, String cor, List<Tamanho> tamanhos) {
+        super(descricao, modelo, preco, compraUnica, promocao, marca, categories, generos);
         this.tamanhos = tamanhos;
         this.cor = cor;
     }

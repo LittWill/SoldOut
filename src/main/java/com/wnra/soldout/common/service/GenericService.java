@@ -10,20 +10,20 @@ public abstract class GenericService<T, ID>  {
     @Autowired
     protected JpaRepository<T, ID> repository;
 
-    public T salvar(T t){
+    public T save(T t){
         return repository.save(t);
     }
 
-    public T obter(ID id){
+    public T get(ID id){
         return repository.findById(id).orElseThrow(() -> new RuntimeException("Entidade não encontrada"));
     }
 
-    public Page<T> listar(Pageable pageable){
+    public Page<T> findAll(Pageable pageable){
         return repository.findAll(pageable);
     }
 
-    public void excluir(ID id){
-        T t = this.obter(id);
+    public void delete(ID id){
+        T t = this.get(id);
         repository.delete(t);
     }
 

@@ -34,7 +34,7 @@ public class PromocaoController extends CommonController<Promocao, String, FormP
 
     @PatchMapping("expirar/{promocaoId}")
     public ResponseEntity<?> expirarPromocaoAntecipadamente (@PathVariable String promocaoId){
-        Promocao promocao = promocaoService.obter(promocaoId);
+        Promocao promocao = promocaoService.get(promocaoId);
         promocao = promocaoService.expirarPromocao(promocao);
         return ResponseEntity.ok("Promoção expirada com sucesso! " + promocao.getDataExpiracao());
     }
@@ -42,10 +42,10 @@ public class PromocaoController extends CommonController<Promocao, String, FormP
     @PostMapping("{promocaoId}/produtos")
     public ResponseEntity<?> definirPromocaoProdutos(@PathVariable String promocaoId, @RequestBody FormPromocaoProdutosIdDTO formPromocaoDTO){
 
-        Promocao promocao = promocaoService.obter(promocaoId);
+        Promocao promocao = promocaoService.get(promocaoId);
 
         List<Produto> produtos =
-                formPromocaoDTO.getProdutosId().stream().map(formIdDTO -> produtoService.obter(formIdDTO.getId())).collect(Collectors.toList());
+                formPromocaoDTO.getProdutosId().stream().map(formIdDTO -> produtoService.get(formIdDTO.getId())).collect(Collectors.toList());
 
         promocaoService.definirPromocao(produtos, promocao);
 
@@ -54,7 +54,7 @@ public class PromocaoController extends CommonController<Promocao, String, FormP
 
     @Override
     protected Promocao converterFormDTO(FormPromocaoDTO formPromocaoDTO) {
-        return PromocaoMapper.formDTOToEntity(formPromocaoDTO);
+        return null;
     }
 
 }

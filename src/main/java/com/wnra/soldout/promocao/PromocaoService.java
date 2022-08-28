@@ -24,7 +24,7 @@ public class PromocaoService extends GenericService<Promocao, String> {
     public Promocao expirarPromocao(Promocao promocao) {
         promocao.setDataExpiracao(LocalDateTime.now());
         produtoRepository.findByPromocao(promocao).forEach(produto -> produto.setPromocao(null));
-        return super.salvar(promocao);
+        return super.save(promocao);
     }
 
     public void definirPromocao(List<Produto> produtos, Promocao promocao) {

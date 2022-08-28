@@ -15,7 +15,7 @@ public class ItemCompraMapper {
 
     
     public static ItemCompra formDTOToEntity(FormItemCompraDTO dto, ProdutoService produtoService){
-        Produto produto = produtoService.obter(dto.getProdutoId());
+        Produto produto = produtoService.get(dto.getProdutoId());
         BigDecimal preco = produto.getPreco();
         return new ItemCompra(dto.getQuantidade(), preco, produto, new Tamanho(dto.getTamanhoId()));
     }
