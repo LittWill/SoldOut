@@ -45,24 +45,23 @@ public abstract class Product {
     private Boolean uniqueBuy;
 
     @ManyToOne
-    @JoinColumn(name = "promotion_id")
-    private Promocao promotion;
+    private Promotion promotion;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "brand_id", updatable = false)
-    private Marca brand;
+    @JoinColumn(updatable = false)
+    private Brand brand;
 
     @ManyToMany
     private List<Category> categories;
 
     @ManyToMany
-    private List<Genero> genres;
+    private List<Genre> genres;
 
     @OneToMany(mappedBy = "product")
-    private List<ImagemProduto> images;
+    private List<ProductImage> images;
 
-    public Product(String description, String model, BigDecimal price, Boolean uniqueBuy, Promocao promotion,
-                   Marca brand, List<Category> categories, List<Genero> genres) {
+    public Product(String description, String model, BigDecimal price, Boolean uniqueBuy, Promotion promotion,
+                   Brand brand, List<Category> categories, List<Genre> genres) {
         this.id = UUID.randomUUID().toString();
         this.addDate = LocalDateTime.now();
         this.description = description;
