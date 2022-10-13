@@ -32,7 +32,7 @@ public class BrandService {
         Brand oldBrand = find(brandId);
         updatedBrand.setId(oldBrand.getId());
         updatedBrand.setAddDate(oldBrand.getAddDate());
-        return updatedBrand;
+        return brandRepository.save(updatedBrand);
     }
 
     public void delete(String brandId) {

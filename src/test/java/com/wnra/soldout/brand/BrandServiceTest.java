@@ -69,7 +69,7 @@ class BrandServiceTest {
     void testUpdate() {
         Brand updatedBrand = BrandTemplate.getValid();
         updatedBrand.setName("UPDATED_BRAND");
-        updatedBrand = brandService.update(brand.getId(), updatedBrand);
+        brandService.update(brand.getId(), updatedBrand);
 
         assertThat(updatedBrand.getId())
                 .isEqualTo(brand.getId());
