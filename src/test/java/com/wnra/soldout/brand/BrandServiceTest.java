@@ -11,6 +11,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.NoSuchElementException;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -48,13 +49,7 @@ class BrandServiceTest {
     @DisplayName("A busca por ID está funcionando")
     @Test
     void testFind() {
-        assertThatCode(() -> brandService.find(brand.getId())).doesNotThrowAnyException();
-    }
-
-    @DisplayName("A falha na busca está lançando a exceção esperada")
-    @Test
-    void testFindError() {
-        assertThatThrownBy(() -> brandService.find("")).isInstanceOf(NoSuchElementException.class);
+        assertThatCode(() -> brandService.findById(brand.getId())).doesNotThrowAnyException();
     }
 
     @DisplayName("A busca de todas as marcas está trazendo o item salvo")
@@ -85,7 +80,7 @@ class BrandServiceTest {
     @DisplayName("A deleção está funcionando corretamente")
     @Test
     void testDelete() {
-        brandService.delete(brand.getId());
+        brandService.deleteById(brand.getId());
         assertThat(brandRepository.findById(brand.getId())).isEmpty();
     }
 
