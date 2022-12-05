@@ -5,16 +5,14 @@ import lombok.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.time.LocalDateTime;
 
 @Builder
 @Getter
 @Setter
-@Table(name = "brand")
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
+@Entity(name = "brand")
 public class Brand {
 
     @Id

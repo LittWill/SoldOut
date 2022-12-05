@@ -2,12 +2,10 @@ package com.wnra.soldout.brand;
 
 import com.wnra.soldout.common.GenericService;
 import com.wnra.soldout.domain.Brand;
-import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
 import java.util.UUID;
 
 @Service

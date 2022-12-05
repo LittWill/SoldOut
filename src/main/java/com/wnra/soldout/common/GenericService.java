@@ -11,7 +11,6 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public abstract class GenericService<T, ID> {
-
     protected final JpaRepository<T, ID> repository;
 
     public T save(T t) {
