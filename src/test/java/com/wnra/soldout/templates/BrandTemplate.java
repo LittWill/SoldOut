@@ -8,10 +8,16 @@ import java.time.LocalDateTime;
 public class BrandTemplate {
 
     public static Brand getValid(){
-       return Brand.builder().name("BRAND_NAME").addDate(LocalDateTime.now()).build();
+       return Brand.builder()
+               .name("BRAND_NAME")
+               .uriLogo("URI_LOGO")
+               .build();
     }
 
     public static RequestBrandDTO getValidRequestDTO(){
-        return RequestBrandDTO.builder().name("BRAND_NAME").build();
+        return RequestBrandDTO.builder()
+                .name("BRAND_NAME")
+                .uriLogo("URI_LOGO")
+                .build();
     }
 }

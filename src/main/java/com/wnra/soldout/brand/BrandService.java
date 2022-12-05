@@ -18,8 +18,10 @@ public class BrandService extends GenericService<Brand, String> {
     }
 
     public Brand save(Brand brand) {
+        LocalDateTime now = LocalDateTime.now();
         brand.setId(UUID.randomUUID().toString());
-        brand.setAddDate(LocalDateTime.now());
+        brand.setAddDate(now);
+        brand.setLastUpdate(now);
         return repository.save(brand);
     }
 
@@ -27,6 +29,7 @@ public class BrandService extends GenericService<Brand, String> {
         Brand oldBrand = findById(brandId).orElseThrow();
         updatedBrand.setId(oldBrand.getId());
         updatedBrand.setAddDate(oldBrand.getAddDate());
+        updatedBrand.setLastUpdate(LocalDateTime.now());
         return repository.save(updatedBrand);
     }
 

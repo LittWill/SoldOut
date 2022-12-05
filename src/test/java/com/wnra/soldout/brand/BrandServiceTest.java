@@ -2,48 +2,42 @@ package com.wnra.soldout.brand;
 
 import com.wnra.soldout.domain.Brand;
 import com.wnra.soldout.templates.BrandTemplate;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestMethodOrder;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
-import javax.persistence.EntityNotFoundException;
-import java.util.NoSuchElementException;
+import java.time.LocalDateTime;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatCode;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
 
-@SpringBootTest
-@TestMethodOrder(MethodOrderer.DisplayName.class)
 class BrandServiceTest {
-
-    @Autowired
+    @InjectMocks
     private BrandService brandService;
-
-    @Autowired
+    @Mock
     private BrandRepository brandRepository;
     private Brand brand;
 
     @BeforeEach
     void setup() {
-        brand = brandService.save(BrandTemplate.getValid());
-    }
-
-    @AfterEach
-    void clean() {
-        brandRepository.deleteAll();
+        brand = BrandTemplate.getValid();
+        MockitoAnnotations.openMocks(this);
+        when(brandRepository.findById(any())).thenReturn(Optional.of(brand));
     }
 
     @DisplayName("O ID e data de adição foram gerados")
     @Test
     void testSave() {
+        brandService.save(brand);
         assertThat(brand.getId()).isNotNull();
         assertThat(brand.getAddDate()).isNotNull();
+        assertThat(brand.getLastUpdate()).isNotNull();
     }
 
     @DisplayName("A busca por ID está funcionando")
@@ -62,6 +56,8 @@ class BrandServiceTest {
     @DisplayName("A atualização de marca está alterando o atributo name e mantendo os outros")
     @Test
     void testUpdate() {
+        brand.setAddDate(LocalDateTime.now());
+
         Brand updatedBrand = BrandTemplate.getValid();
         updatedBrand.setName("UPDATED_BRAND");
         brandService.update(brand.getId(), updatedBrand);
@@ -70,7 +66,7 @@ class BrandServiceTest {
                 .isEqualTo(brand.getId());
 
         assertThat(updatedBrand.getAddDate())
-                .isEqualToIgnoringNanos(brand.getAddDate());
+                .isEqualToIgnoringSeconds(brand.getAddDate());
 
         assertThat(updatedBrand.getName())
                 .isNotEqualTo(brand.getName())
@@ -81,7 +77,6 @@ class BrandServiceTest {
     @Test
     void testDelete() {
         brandService.deleteById(brand.getId());
-        assertThat(brandRepository.findById(brand.getId())).isEmpty();
     }
 
 }

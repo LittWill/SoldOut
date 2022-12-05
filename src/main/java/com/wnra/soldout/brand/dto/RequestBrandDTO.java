@@ -17,5 +17,7 @@ public class RequestBrandDTO {
 
     @NotBlank
     private String name;
+    @NotBlank
+    private String uriLogo;
 
 }
