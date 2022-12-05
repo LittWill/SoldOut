@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnra.soldout.SoldOutIT;
 import com.wnra.soldout.templates.BrandTemplate;
 import lombok.SneakyThrows;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -40,7 +41,7 @@ class BrandControllerIT extends SoldOutIT {
         brandId = brandService.save(BrandTemplate.getValid()).getId();
     }
 
-    @BeforeEach
+    @AfterEach
     void clean() {
         brandRepository.deleteAll();
     }
