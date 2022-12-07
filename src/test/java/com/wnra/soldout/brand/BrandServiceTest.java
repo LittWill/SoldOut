@@ -8,13 +8,11 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -41,19 +39,6 @@ class BrandServiceTest {
         assertThat(brand.getLastUpdate()).isNotNull();
     }
 
-    @DisplayName("A busca por ID está funcionando")
-    @Test
-    void testFind() {
-        assertThatCode(() -> brandService.findById(brand.getId())).doesNotThrowAnyException();
-    }
-
-    @DisplayName("A busca de todas as marcas está trazendo o item salvo")
-    @Test
-    void testFindAll() {
-        assertThat(brandService.findAll())
-                .allMatch(brand -> this.brand.getId().equals(brand.getId()));
-    }
-
     @DisplayName("A atualização de marca está alterando o atributo name e mantendo os outros")
     @Test
     void testUpdate() {
@@ -72,12 +57,6 @@ class BrandServiceTest {
         assertThat(updatedBrand.getName())
                 .isNotEqualTo(brand.getName())
                 .isEqualTo("UPDATED_BRAND");
-    }
-
-    @DisplayName("A deleção está funcionando corretamente")
-    @Test
-    void testDelete() {
-        brandService.deleteById(brand.getId());
     }
 
 }

@@ -3,8 +3,6 @@ package com.wnra.soldout.templates;
 import com.wnra.soldout.brand.dto.RequestBrandDTO;
 import com.wnra.soldout.domain.Brand;
 
-import java.time.LocalDateTime;
-
 public class BrandTemplate {
 
     public static Brand getValid(){

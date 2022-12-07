@@ -13,7 +13,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatCode;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
@@ -40,19 +39,6 @@ class CategoryServiceTest {
         assertThat(category.getLastUpdate()).isNotNull();
     }
 
-    @DisplayName("A busca por ID está funcionando")
-    @Test
-    void testFind() {
-        assertThatCode(() -> categoryService.findById(category.getId())).doesNotThrowAnyException();
-    }
-
-    @DisplayName("A busca de todas as categorias está trazendo o item salvo")
-    @Test
-    void testFindAll() {
-        assertThat(categoryService.findAll())
-                .allMatch(category -> this.category.getId().equals(category.getId()));
-    }
-
     @DisplayName("A atualização de categoria está alterando o atributo name e mantendo os outros")
     @Test
     void testUpdate() {
@@ -76,12 +62,6 @@ class CategoryServiceTest {
         assertThat(updatedcategory.getDescription())
                 .isNotEqualTo(category.getDescription())
                 .isEqualTo("UPDATE_DESCRIPTION");
-    }
-
-    @DisplayName("A deleção está funcionando corretamente")
-    @Test
-    void testDelete() {
-        categoryService.deleteById(category.getId());
     }
 
 }

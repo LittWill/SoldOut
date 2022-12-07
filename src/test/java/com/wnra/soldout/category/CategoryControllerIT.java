@@ -13,7 +13,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,6 +33,9 @@ class CategoryControllerIT extends SoldOutIT {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     private String categoryId;
 
@@ -49,7 +55,7 @@ class CategoryControllerIT extends SoldOutIT {
     void testSave() {
         mockMvc.perform(post(API_SUFFIX)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsBytes(CategoryTemplate.getValidRequestDTO())))
+                        .content(objectMapper.writeValueAsBytes(CategoryTemplate.getValidRequestDTO())))
                 .andExpect(status().isCreated());
     }
 
@@ -84,7 +90,7 @@ class CategoryControllerIT extends SoldOutIT {
     void testUpdate() {
         mockMvc.perform(put(API_SUFFIX + "/" + categoryId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(new ObjectMapper().writeValueAsBytes(CategoryTemplate.getValidRequestDTO())))
+                        .content(objectMapper.writeValueAsBytes(CategoryTemplate.getValidRequestDTO())))
                 .andExpect(status().isOk());
     }
 
