@@ -5,20 +5,25 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity(name = "coupon")
-public class Coupon {
+@EntityListeners(CallBackListener.class)
+public class Coupon implements DefaultOperations {
 
     @Id
     @Column(name = "cpn_id")
@@ -35,4 +40,10 @@ public class Coupon {
     private Boolean isFreightCoupon;
     @Column(name = "cpn_is_value_percentage")
     private Boolean isValuePercentage;
+
+    @Override
+    public void beforeSave() {
+        this.id = UUID.randomUUID().toString();
+        this.creationDate = LocalDateTime.now();
+    }
 }

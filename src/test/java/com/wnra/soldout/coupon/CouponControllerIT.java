@@ -2,6 +2,7 @@ package com.wnra.soldout.coupon;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnra.soldout.SoldOutIT;
+import com.wnra.soldout.domain.Coupon;
 import com.wnra.soldout.templates.CouponTemplate;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -14,6 +15,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+import java.util.Objects;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -35,7 +40,6 @@ class CouponControllerIT extends SoldOutIT {
     @Autowired
     private MockMvc mockMvc;
     private String couponId;
-
     @Autowired
     private ObjectMapper objectMapper;
 
@@ -57,6 +61,8 @@ class CouponControllerIT extends SoldOutIT {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(CouponTemplate.getValidDTO())))
                 .andExpect(status().isCreated());
+        Coupon coupon = couponRepository.findAll().stream().findFirst().get();
+        assertThat(List.of(coupon.getId(), coupon.getCreationDate())).allMatch(Objects::nonNull);
     }
 
     @DisplayName("O endpoint para buscar cupons está funcionando")

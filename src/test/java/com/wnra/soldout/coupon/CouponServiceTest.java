@@ -11,9 +11,6 @@ import org.mockito.MockitoAnnotations;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -35,16 +32,6 @@ class CouponServiceTest {
         MockitoAnnotations.openMocks(this);
         when(couponRepository.findById(any())).thenReturn(Optional.of(coupon));
     }
-
-    @DisplayName("A geração de valores antes de salvar está funcionando")
-    @Test
-    void testSave() {
-        coupon = CouponTemplate.getRequest();
-        assertThat(Arrays.asList(coupon.getId(), coupon.getCreationDate())).allMatch(Objects::isNull);
-        couponService.save(coupon);
-        assertThat(List.of(coupon.getId(), coupon.getCreationDate())).allMatch(Objects::nonNull);
-    }
-
     @DisplayName("A atualização de valores antes de salvar está funcionando")
     @Test
     void testUpdate() {
