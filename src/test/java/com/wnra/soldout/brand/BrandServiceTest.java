@@ -30,15 +30,6 @@ class BrandServiceTest {
         when(brandRepository.findById(any())).thenReturn(Optional.of(brand));
     }
 
-    @DisplayName("O ID e data de adição foram gerados")
-    @Test
-    void testSave() {
-        brandService.save(brand);
-        assertThat(brand.getId()).isNotNull();
-        assertThat(brand.getAddDate()).isNotNull();
-        assertThat(brand.getLastUpdate()).isNotNull();
-    }
-
     @DisplayName("A atualização de marca está alterando o atributo name e mantendo os outros")
     @Test
     void testUpdate() {

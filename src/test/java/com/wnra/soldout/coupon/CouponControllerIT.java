@@ -40,12 +40,15 @@ class CouponControllerIT extends SoldOutIT {
     @Autowired
     private MockMvc mockMvc;
     private String couponId;
+
+    private Coupon coupon;
     @Autowired
     private ObjectMapper objectMapper;
 
     @BeforeEach
     void setup() {
-        couponId = couponService.save(CouponTemplate.getRequest()).getId();
+        coupon = couponService.save(CouponTemplate.getRequest());
+        couponId = coupon.getId();
     }
 
     @AfterEach
@@ -61,7 +64,6 @@ class CouponControllerIT extends SoldOutIT {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(CouponTemplate.getValidDTO())))
                 .andExpect(status().isCreated());
-        Coupon coupon = couponRepository.findAll().stream().findFirst().get();
         assertThat(List.of(coupon.getId(), coupon.getCreationDate())).allMatch(Objects::nonNull);
     }
 

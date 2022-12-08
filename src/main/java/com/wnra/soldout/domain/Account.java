@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embedded;
@@ -18,6 +19,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 @Entity(name = "account")
 public class Account {
     @Id
@@ -30,5 +32,6 @@ public class Account {
     @Embedded
     private Customer customer;
     @OneToMany(mappedBy = "account")
+    @ToString.Exclude
     private List<AssignedCoupon> assignedCoupons;
 }

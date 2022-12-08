@@ -1,5 +1,7 @@
 package com.wnra.soldout.domain;
 
+import com.wnra.soldout.domain.crud.CrudListener;
+import com.wnra.soldout.domain.crud.CrudOperations;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -13,7 +15,6 @@ import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,8 +23,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @ToString
 @Entity(name = "coupon")
-@EntityListeners(CallBackListener.class)
-public class Coupon implements DefaultOperations {
+@EntityListeners(CrudListener.class)
+public class Coupon implements CrudOperations {
 
     @Id
     @Column(name = "cpn_id")
@@ -43,7 +44,6 @@ public class Coupon implements DefaultOperations {
 
     @Override
     public void beforeSave() {
-        this.id = UUID.randomUUID().toString();
         this.creationDate = LocalDateTime.now();
     }
 }

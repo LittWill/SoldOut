@@ -1,13 +1,17 @@
 package com.wnra.soldout.domain;
 
+import com.wnra.soldout.domain.crud.CrudListener;
+import com.wnra.soldout.domain.crud.CrudOperations;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
 
@@ -16,8 +20,10 @@ import java.time.LocalDateTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Entity(name = "brand")
-public class Brand {
+@EntityListeners(CrudListener.class)
+public class Brand implements CrudOperations {
 
     @Id
     @Column(name = "brd_id")
@@ -31,4 +37,15 @@ public class Brand {
     @Column(name = "brd_uri_logo")
     private String uriLogo;
 
+    @Override
+    public void beforeSave() {
+        LocalDateTime now = LocalDateTime.now();
+        this.addDate = now;
+        this.lastUpdate = now;
+    }
+
+    @Override
+    public void beforeUpdate() {
+        this.lastUpdate = LocalDateTime.now();
+    }
 }

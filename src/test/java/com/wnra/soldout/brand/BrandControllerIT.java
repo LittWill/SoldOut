@@ -2,6 +2,7 @@ package com.wnra.soldout.brand;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnra.soldout.SoldOutIT;
+import com.wnra.soldout.domain.Brand;
 import com.wnra.soldout.templates.BrandTemplate;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
@@ -13,6 +14,10 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+import java.util.Objects;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -39,9 +44,12 @@ class BrandControllerIT extends SoldOutIT {
 
     private String brandId;
 
+    private Brand brand;
+
     @BeforeEach
     void setup() {
-        brandId = brandService.save(BrandTemplate.getValid()).getId();
+        brand = brandService.save(BrandTemplate.getValid());
+        brandId = brand.getId();
     }
 
     @AfterEach
@@ -57,6 +65,7 @@ class BrandControllerIT extends SoldOutIT {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsBytes(BrandTemplate.getValidRequestDTO())))
                 .andExpect(status().isCreated());
+        assertThat(List.of(brand.getId(), brand.getAddDate(), brand.getLastUpdate())).allMatch(Objects::nonNull);
     }
 
     @DisplayName("O endpoint para buscar marcas está funcionando")

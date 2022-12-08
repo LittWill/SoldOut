@@ -1,8 +1,12 @@
 package com.wnra.soldout.domain;
 
+import lombok.Data;
+import lombok.ToString;
+
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
+@Data
 @Embeddable
 public class Customer {
     @Column(name = "acc_customer_fn")
