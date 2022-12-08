@@ -1,5 +1,7 @@
 package com.wnra.soldout.domain;
 
+import com.wnra.soldout.domain.crud.CrudListener;
+import com.wnra.soldout.domain.crud.CrudOperations;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +11,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -20,7 +23,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @ToString
 @Entity(name = "promotion")
-public class Promotion {
+@EntityListeners(CrudListener.class)
+public class Promotion implements CrudOperations {
     @Id
     @Column(name = "prm_id")
     private String id;
@@ -32,4 +36,16 @@ public class Promotion {
     private BigDecimal value;
     @Column(name = "prm_is_value_percentage")
     private Boolean isPercentageValue;
+
+    @Override
+    public void saveExtraOperations() {
+        LocalDateTime now = LocalDateTime.now();
+        this.creationDate = now;
+        this.lastUpdate = now;
+    }
+
+    @Override
+    public void beforeUpdate() {
+        this.lastUpdate = LocalDateTime.now();
+    }
 }

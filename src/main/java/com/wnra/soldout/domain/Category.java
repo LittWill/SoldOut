@@ -38,7 +38,7 @@ public class Category implements CrudOperations {
     private String description;
 
     @Override
-    public void beforeSave() {
+    public void saveExtraOperations() {
         LocalDateTime now = LocalDateTime.now();
         this.additionDate = now;
         this.lastUpdate = now;

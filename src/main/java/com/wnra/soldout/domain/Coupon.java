@@ -43,7 +43,7 @@ public class Coupon implements CrudOperations {
     private Boolean isValuePercentage;
 
     @Override
-    public void beforeSave() {
+    public void saveExtraOperations() {
         this.creationDate = LocalDateTime.now();
     }
 }

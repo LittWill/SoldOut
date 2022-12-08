@@ -38,7 +38,7 @@ public class Brand implements CrudOperations {
     private String uriLogo;
 
     @Override
-    public void beforeSave() {
+    public void saveExtraOperations() {
         LocalDateTime now = LocalDateTime.now();
         this.addDate = now;
         this.lastUpdate = now;
