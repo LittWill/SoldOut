@@ -1,5 +1,6 @@
 package com.wnra.soldout.domain;
 
+import com.wnra.soldout.domain.crud.CrudListener;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,6 +10,7 @@ import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -20,6 +22,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @ToString
 @Entity
+@EntityListeners(CrudListener.class)
 public class AssignedCoupon {
     @Id
     @Column(name = "aca_id")
