@@ -9,10 +9,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -39,6 +41,7 @@ public class Promotion implements CrudOperations {
     @Column(name = "prm_is_value_percentage")
     private Boolean isPercentageValue;
     @OneToMany
+    @JoinColumn(name = "prd_prm_id")
     @ToString.Exclude
     private List<Product> products;
 
