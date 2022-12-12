@@ -1,5 +1,6 @@
 package com.wnra.soldout.product.dto;
 
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@Builder
 public class RequestProductDTO {
     @NotBlank
     private String model;

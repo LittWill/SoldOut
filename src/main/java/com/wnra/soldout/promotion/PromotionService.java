@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 
 @Service
 public class PromotionService extends GenericService<Promotion, String> {
@@ -21,31 +22,31 @@ public class PromotionService extends GenericService<Promotion, String> {
 
     @Override
     public Promotion save(Promotion promotion) {
-
-        boolean allProductsFound = promotion.getProducts().stream()
-                .map(Product::getId)
-                .allMatch(productRepository::existsById);
-
-        if (!allProductsFound) {
-            throw new EntityNotFoundException("Um ou mais produtos não encontrados!");
-        }
-
+        verifyProducts(promotion.getProducts());
         return repository.save(promotion);
     }
 
     public Promotion assignPromotion(Promotion promotion) {
         promotion = findById(promotion.getId()).orElseThrow();
+        verifyProducts(promotion.getProducts());
+        promotion.setProducts(promotion.getProducts());
+        return repository.save(promotion);
+    }
 
-        boolean allProductsFound = promotion.getProducts().stream()
+    public Promotion updatePromotion(String id, Promotion updatedPromotion) {
+        Promotion oldPromotion = findById(id).orElseThrow();
+        updatedPromotion.setId(id);
+        updatedPromotion.setCreationDate(oldPromotion.getCreationDate());
+        return repository.save(updatedPromotion);
+    }
+
+    private void verifyProducts(List<Product> products) {
+        boolean isAllProductsFound = products.stream()
                 .map(Product::getId)
                 .allMatch(productRepository::existsById);
 
-        if (!allProductsFound) {
+        if (isAllProductsFound) {
             throw new EntityNotFoundException("Um ou mais produtos não encontrados!");
         }
-
-        promotion.setProducts(promotion.getProducts());
-
-        return repository.save(promotion);
     }
 }
