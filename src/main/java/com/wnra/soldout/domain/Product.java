@@ -47,7 +47,7 @@ public class Product implements CrudOperations {
     @ManyToOne
     @JoinColumn(name = "prd_brd_id")
     private Brand brand;
-    @ManyToOne(cascade = CascadeType.PERSIST)
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
     @JoinColumn(name = "prd_prm_id")
     private Promotion currentPromotion;
     @ManyToMany

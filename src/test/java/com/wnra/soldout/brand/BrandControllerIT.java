@@ -1,6 +1,5 @@
 package com.wnra.soldout.brand;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnra.soldout.SoldOutIT;
 import com.wnra.soldout.domain.Brand;
 import com.wnra.soldout.templates.BrandTemplate;
@@ -10,9 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,25 +22,13 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
 class BrandControllerIT extends SoldOutIT {
 
     private static final String API_SUFFIX = "/brands";
 
     @Autowired
     private BrandService brandService;
-
-    @Autowired
-    private BrandRepository brandRepository;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
-    @Autowired
-    private MockMvc mockMvc;
-
     private String brandId;
-
     private Brand brand;
 
     @BeforeEach

@@ -36,6 +36,11 @@ public class PromotionService extends GenericService<Promotion, String> {
         return repository.save(updatedPromotion);
     }
 
+    @Override
+    public void deleteById(String id) {
+        repository.delete(findById(id).orElseThrow());
+    }
+
     private void verifyProducts(List<Product> products) {
         if (!CollectionUtils.isEmpty(products)) {
             List<String> productsIdsNotFound = products.stream()

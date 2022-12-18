@@ -1,19 +1,15 @@
 package com.wnra.soldout.coupon;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnra.soldout.SoldOutIT;
 import com.wnra.soldout.domain.Coupon;
 import com.wnra.soldout.templates.CouponTemplate;
-import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,25 +21,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
-@RequiredArgsConstructor
 class CouponControllerIT extends SoldOutIT {
 
     private static final String API_SUFFIX = "/coupons";
 
     @Autowired
     private CouponService couponService;
-
-    @Autowired
-    private CouponRepository couponRepository;
-
-    @Autowired
-    private MockMvc mockMvc;
     private String couponId;
 
     private Coupon coupon;
-    @Autowired
-    private ObjectMapper objectMapper;
 
     @BeforeEach
     void setup() {

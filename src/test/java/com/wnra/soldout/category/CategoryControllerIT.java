@@ -1,6 +1,5 @@
 package com.wnra.soldout.category;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wnra.soldout.SoldOutIT;
 import com.wnra.soldout.templates.CategoryTemplate;
 import lombok.SneakyThrows;
@@ -9,9 +8,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,23 +17,12 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@AutoConfigureMockMvc
 class CategoryControllerIT extends SoldOutIT {
 
     private static final String API_SUFFIX = "/categories";
 
     @Autowired
     private CategoryService categoryService;
-
-    @Autowired
-    private CategoryRepository categoryRepository;
-
-    @Autowired
-    private MockMvc mockMvc;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
     private String categoryId;
 
     @BeforeEach

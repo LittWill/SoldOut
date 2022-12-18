@@ -45,7 +45,7 @@ public class PromotionController {
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<ResponsePromotionDTO> update(@PathVariable String id, SavePromotionDTO updatedPromotionDTO) {
+    public ResponseEntity<ResponsePromotionDTO> update(@PathVariable String id, @Valid @RequestBody SavePromotionDTO updatedPromotionDTO) {
         return ResponseEntity.ok(promotionMapper.toResponse(promotionService.updatePromotion(id, promotionMapper.toModel(updatedPromotionDTO))));
     }
 

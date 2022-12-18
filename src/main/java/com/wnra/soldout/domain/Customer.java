@@ -1,7 +1,6 @@
 package com.wnra.soldout.domain;
 
 import lombok.Data;
-import lombok.ToString;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
