@@ -2,6 +2,7 @@ package com.wnra.soldout.promotion;
 
 import com.wnra.soldout.domain.Product;
 import com.wnra.soldout.domain.Promotion;
+import com.wnra.soldout.domain.Shoes;
 import com.wnra.soldout.product.ProductMapper;
 import com.wnra.soldout.promotion.dto.ResponsePromotionDTO;
 import com.wnra.soldout.promotion.dto.SavePromotionDTO;
@@ -25,7 +26,7 @@ public interface PromotionMapper {
     default List<Product> toProducts(List<String> productsIds) {
         return Optional.ofNullable(productsIds).orElseGet(Collections::emptyList)
                 .stream()
-                .map(id -> Product.builder().id(id).build())
+                .map(id -> Shoes.builder().id(id).build())
                 .collect(Collectors.toList());
     }
 }

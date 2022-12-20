@@ -44,23 +44,4 @@ public class SoldOutIT {
     @Autowired
     protected ObjectMapper objectMapper;
 
-    @BeforeAll
-    @SneakyThrows
-    public void beforeAll() {
-        log.info("Todos os registros serão excluídos antes do teste!");
-        Arrays.stream(SoldOutIT.class.getDeclaredFields())
-                .filter(declaredField -> declaredField.getType().isAnnotationPresent(Repository.class))
-                .map(field -> {
-                    field.setAccessible(true);
-                    try {
-                        return field.get(this);
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                })
-                .map(JpaRepository.class::cast)
-                .forEach(JpaRepository::deleteAll);
-    }
-
-
 }

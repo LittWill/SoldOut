@@ -19,18 +19,31 @@ public interface CrudOperations {
     }
 
     private void generateId(CrudOperations crudOperationsImpl) {
-        Arrays.stream(crudOperationsImpl.getClass().getDeclaredFields())
-                .filter(declaredField -> declaredField.isAnnotationPresent(Id.class))
-                .findAny()
-                .ifPresent(declaredField -> {
-                    try {
-                        declaredField.setAccessible(true);
-                        declaredField.set(crudOperationsImpl, IdGenerator.generate());
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    }
-                });
+        if (crudOperationsImpl.getClass().getSuperclass() != Object.class) {
+            Arrays.stream(crudOperationsImpl.getClass().getSuperclass().getDeclaredFields())
+                    .filter(declaredField -> declaredField.isAnnotationPresent(Id.class))
+                    .findAny()
+                    .ifPresent(declaredField -> {
+                        try {
+                            declaredField.setAccessible(true);
+                            declaredField.set(crudOperationsImpl, IdGenerator.generate());
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+        } else {
+            Arrays.stream(crudOperationsImpl.getClass().getDeclaredFields())
+                    .filter(declaredField -> declaredField.isAnnotationPresent(Id.class))
+                    .findAny()
+                    .ifPresent(declaredField -> {
+                        try {
+                            declaredField.setAccessible(true);
+                            declaredField.set(crudOperationsImpl, IdGenerator.generate());
+                        } catch (IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        }
+                    });
+
+        }
     }
-
-
 }
